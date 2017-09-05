@@ -1,0 +1,136 @@
+.donation-frequencies input[type="radio"] {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px; margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  display: none;
+}
+.rivard-donation-form {
+    width: 100%;
+    float: left;
+    margin-bottom:1em;
+}
+.rivard-donation-form button[type="submit"] {
+  background: #fb4834;
+  border:none;
+  font-size: 17px;
+  padding: .5em 2em;
+  color: #fff;
+  margin: 4px 0;
+  font-family:Muli, sans-serif;
+}
+.rivard-donation-form .form-group {
+  float:left;
+  max-width: 30%;
+}
+.rivard-donation-form .form-group::before {
+  content: '$';
+  display: inline-block;
+  width: 4%;
+  font-family:'muli-bold', sans-serif;
+}
+input.rivard-donation-amount.form-control {
+    min-width: 80%;
+    margin-left: 4%;
+    line-height: 2;
+}
+
+.rivard-donate-label {
+	margin-bottom:1em;
+}
+
+.rivard-donation-amount {
+  font-size: 18px;
+  font-family:'muli-bold', sans-serif;
+  max-width: 45%;
+  font-family:Muli,sans-serif;
+  text-align: right;
+}
+
+.donation-frequency-group {
+	width:70%;
+	float:left;
+}
+
+.donation-frequency {
+  padding: 5px;
+  width:30%;
+  max-width:150px;
+  background-color: #ccc;
+  color: #333;
+  text-align: center;
+  font-size: 16px;
+  line-height: 2;
+  cursor: pointer;
+  margin: 0;
+  text-transform: uppercase;
+  font-family:'Muli-bold',sans-serif;
+}
+label.donation-frequency input {
+  display: none;
+}
+
+select.donation-frequencies {
+  width: 50%;
+  height:42px;
+  line-height: 2;
+  border-radius:0;
+  outline: 1px solid #ccc;
+  outline-offset: -1px;
+  border: none;
+  font-family:Muli,sans-serif;
+}
+
+.donation-frequency {
+	color:#fff;
+	background-color: #999;
+}
+.donation-frequency.selected {
+  background-color: #17b0ea;
+}
+.donation-frequency:hover {
+  background-color: #fb4834;
+}
+
+@media screen and (max-width: 480px) {
+  .rivard-donation-amount-label {
+    width: auto;
+  }
+
+  .rivard-donation-amount {
+    display: inline;
+    max-width: 101px;
+  }
+
+  .donation-frequency {
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .member-benefits-link {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .rivard-donation-amount-label {
+    width: auto;
+  }
+
+  .rivard-donation-amount {
+    display: inline;
+    max-width: 85px;
+  }
+
+  .donation-frequency {
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .member-benefits-link {
+    display: block;
+  }
+}
