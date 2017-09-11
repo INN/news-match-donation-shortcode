@@ -50,14 +50,14 @@ class NewsMatchDonation_Shortcode {
 	public function register_assets() {
 		wp_register_style(
 			'newsmatch-donation',
-			plugins_url( 'assets/css/donation.css', __FILE__ )
+			plugins_url( 'assets/css/donation.css', NMD_PLUGIN_FILE )
 		);
 
 		wp_enqueue_style( 'newsmatch-donation' );
 
 		wp_register_script(
 			'newsmatch-donation',
-			plugins_url( 'assets/js/donation.js', __FILE__ ),
+			plugins_url( 'assets/js/donation.js', NMD_PLUGIN_FILE ),
 			array( 'jquery' ),
 			null,
 			true
@@ -74,7 +74,7 @@ class NewsMatchDonation_Shortcode {
 	 * @return string the HTML for the specified view.
 	 */
 	private function render_view( $view_path, $atts ) {
-		$path_to_view = dirname( __FILE__ ) . $view_path;
+		$path_to_view = dirname( NMD_PLUGIN_FILE ) . $view_path;
 		$view_data = shortcode_atts(
 			array(
 				'url' => 'https://checkout.fundjournalism.org',

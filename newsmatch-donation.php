@@ -7,6 +7,13 @@ Version: 0.1
 Author:  inn_nerds, Fairway Technologies
 Author URI: http://fairwaytech.com
 */
+
+// Plugin directory normalization
+define( 'NMD_PLUGIN_FILE', __FILE__ );
+
+/**
+ * Set up the plugin
+ */
 class NewsMatchDonation {
 	public function __construct() {
 		require_once( __DIR__ . '/classes/NewsMatchDonation_Shortcode.php' );
