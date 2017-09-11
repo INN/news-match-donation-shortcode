@@ -4,7 +4,7 @@ jQuery(document).ready(function() {
 	
 	//donationController.init();
 
-	var forms = $('form.rivard-donation-form').each(function(){
+	var forms = $('form.newsmatch-donation-form').each(function(){
 		var $form = $(this);
 		donationInit($form);
 	});
@@ -20,7 +20,7 @@ jQuery(document).ready(function() {
  * Initialize the donation form.
  */
 function donationInit(form){
-	var $amount_input = form.find('.rivard-donation-amount');
+	var $amount_input = form.find('.newsmatch-donation-amount');
 	var amount = $amount_input.val();
 	var $frequency_checked;
 	var level;
@@ -98,14 +98,14 @@ function donationInit(form){
 	form.on('submit', function(e) {
 		e.preventDefault();
 
-		var $amount = form.find('.rivard-donation-amount');
+		var $amount = form.find('.newsmatch-donation-amount');
 		var $frequency;
 		if (form.hasClass('type-select')){
 			$frequency = form.find('select[name="frequency"]');
 		} else {
 			$frequency = form.find('input[name="frequency"]:checked');
 		}
-		var $campaign = form.find('.rivard-sf-campaign-id');
+		var $campaign = form.find('.newsmatch-sf-campaign-id');
 
 		if (!isInputValid($amount.val(), $frequency.val(), form)) {
 			return false;
@@ -124,11 +124,11 @@ function donationInit(form){
 		if ($frequency.val() === 'once') {
 			url
 				+= 'donateform'
-				+ '?org_id=rivardreport'
+				+ '?org_id=newsmatch'
 				+ '&amount=' + amount.toFixed(2);
 		} else {
 			url += 'memberform'
-				+ '?org_id=rivardreport'
+				+ '?org_id=newsmatch'
 				+ '&amount=' + amount.toFixed(2)
 				+ '&installmentPeriod=' + $frequency.val();
 		}
