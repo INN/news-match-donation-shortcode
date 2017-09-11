@@ -1,17 +1,17 @@
 <?php
 /*
-Plugin Name: Rivard Donation Integration
+Plugin Name: News Match Donation Shortcode
 Plugin URI: http://fairwaytech.com
 Description:  Provides methods to integrate with the donation application hosted at checkout.voiceofsandiego.org
 Version: 1.0
 Author:  inn_nerds, Fairway Technologies
 Author URI: http://fairwaytech.com
 */
-class RivardDonation {
+class NewsMatchDonation {
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ) );
 
-		add_shortcode( 'rivard_donation_form', array( $this, 'donation_form_shortcode' ) );
+		add_shortcode( 'newsmatch_donation_form', array( $this, 'donation_form_shortcode' ) );
 	}
 
 	/**
@@ -22,16 +22,16 @@ class RivardDonation {
 	 * <p>
 	 *     Example usage:
 	 *     Add donation form with no Salesforce campaign id and no default donation amount specified:
-	 *     [rivard_donation_form]
+	 *     [newsmatch_donation_form]
 	 *
 	 *      Add donation form with no Salesforce campaign id and $50.00 as the default donation amount:
-	 *      [rivard_donation_form amount="50"]
+	 *      [newsmatch_donation_form amount="50"]
 	 *
 	 *      Add a donation form with a Salesforce campaign id of "foo" and $25.00 as the default donation amount:
-	 *      [rivard_donation_form sf_campaign_id="foo" amount="25"]
+	 *      [newsmatch_donation_form sf_campaign_id="foo" amount="25"]
 	 *
 	 *      Add a donation form with a Salesforce campaign id of "foo" and do not specify a default donation amount:
-	 *      [rivard_donation_form sf_campaign_id="foo"]
+	 *      [newsmatch_donation_form sf_campaign_id="foo"]
 	 * </p>
 	 *
 	 * @param  array $atts The attribute values passed in through the shortcode.
@@ -50,21 +50,21 @@ class RivardDonation {
 	*/
 	public function register_assets() {
 		wp_register_style(
-			'rivard-donation',
+			'newsmatch-donation',
 			plugins_url( 'assets/css/donation.css', __FILE__ )
 		);
 
-		wp_enqueue_style( 'rivard-donation' );
+		wp_enqueue_style( 'newsmatch-donation' );
 
 		wp_register_script(
-			'rivard-donation',
-			plugins_url( 'assets/js/rivard-donation.js', __FILE__ ),
+			'newsmatch-donation',
+			plugins_url( 'assets/js/donation.js', __FILE__ ),
 			array( 'jquery' ),
 			null,
 			true
 		);
 
-		wp_enqueue_script( 'rivard-donation' );
+		wp_enqueue_script( 'newsmatch-donation' );
 	}
 
 	/**
@@ -115,4 +115,4 @@ class RivardDonation {
 	}
 }
 
-new RivardDonation();
+new NewsMatchDonation();
