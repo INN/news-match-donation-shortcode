@@ -18,6 +18,8 @@ class NewsMatchDonation {
 	public function __construct() {
 		require_once( __DIR__ . '/classes/NewsMatchDonation_Shortcode.php' );
 		new NewsMatchDonation_Shortcode();
+		require_once( __DIR__ . '/classes/NewsMatchDonation_Settings.php' );
+		new NewsMatchDonation_Settings();
 	}
 }
 
