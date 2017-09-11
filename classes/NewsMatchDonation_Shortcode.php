@@ -37,7 +37,7 @@ class NewsMatchDonation_Shortcode {
 	 * @return string The HTML markup for the donation form.
 	 */
 	public function donation_form_shortcode( $atts ) {
-		if ( $atts['type'] == 'select' ) {
+		if ( isset( $atts['type'] ) && $atts['type'] == 'select' ) {
 			return $this->render_view( '/views/rr-donation-form-select.view.php', $atts );
 		} else {
 			return $this->render_view( '/views/rr-donation-form-buttons.view.php', $atts );
