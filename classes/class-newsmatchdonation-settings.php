@@ -93,54 +93,54 @@ class NewsMatchDonation_Settings {
 			$this->settings_page
 		);
 
-		register_setting( $this->settings_group, $this->options_prefix . 'field_org_name', 'sanitize_text_field' );
+		register_setting( $this->settings_group, self::$options_prefix . 'org_name', 'sanitize_text_field' );
 		add_settings_field(
-			$this->options_prefix . 'org_name',
+			self::$options_prefix . 'org_name',
 			__( 'Organization Name', 'newsmatch' ),
 			array( $this, 'field_org_name' ),
 			$this->settings_page,
 			$this->settings_section
 		);
 
-		register_setting( $this->settings_group, $this->options_prefix . 'field_org_id', 'sanitize_text_field' );
+		register_setting( $this->settings_group, self::$options_prefix . 'org_id', 'sanitize_text_field' );
 		add_settings_field(
-			$this->options_prefix . 'org_id',
+			self::$options_prefix . 'org_id',
 			__( 'Organization ID', 'newsmatch' ),
 			array( $this, 'field_org_id' ),
 			$this->settings_page,
 			$this->settings_section
 		);
 
-		register_setting( $this->settings_group, $this->options_prefix . 'url_live', 'sanitize_text_field' );
+		register_setting( $this->settings_group, self::$options_prefix . 'url_live', 'sanitize_text_field' );
 		add_settings_field(
-			$this->options_prefix . 'url_live',
+			self::$options_prefix . 'url_live',
 			__( 'Live donation form URL', 'newsmatch' ),
 			array( $this, 'field_url_live' ),
 			$this->settings_page,
 			$this->settings_section
 		);
 
-		register_setting( $this->settings_group, $this->options_prefix . 'url_staging', 'sanitize_text_field' );
+		register_setting( $this->settings_group, self::$options_prefix . 'url_staging', 'sanitize_text_field' );
 		add_settings_field(
-			$this->options_prefix . 'url_staging',
+			self::$options_prefix . 'url_staging',
 			__( 'Testing donation form URL', 'newsmatch' ),
 			array( $this, 'field_url_staging' ),
 			$this->settings_page,
 			$this->settings_section
 		);
 
-		register_setting( $this->settings_group, $this->options_prefix . 'url_toggle', 'sanitize_text_field' );
+		register_setting( $this->settings_group, self::$options_prefix . 'url_toggle', 'sanitize_text_field' );
 		add_settings_field(
-			$this->options_prefix . 'url_toggle',
+			self::$options_prefix . 'url_toggle',
 			__( 'Use the live or testing donation form?', 'newsmatch' ),
 			array( $this, 'field_url_toggle' ),
 			$this->settings_page,
 			$this->settings_section
 		);
 
-		register_setting( $this->settings_group, $this->options_prefix . 'default_sf_id', 'sanitize_text_field' );
+		register_setting( $this->settings_group, self::$options_prefix . 'default_sf_id', 'sanitize_text_field' );
 		add_settings_field(
-			$this->options_prefix . 'default_sf_id',
+			self::$options_prefix . 'default_sf_id',
 			__( 'Default Salesforce campaign id', 'newsmatch' ),
 			array( $this, 'field_default_sf_id' ),
 			$this->settings_page,
@@ -161,7 +161,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_org_name( $args ) {
-		$option = $this->options_prefix . 'org_name';
+		$option = self::$options_prefix . 'org_name';
 		$value = get_option( $option, '' );
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -178,7 +178,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_org_id( $args ) {
-		$option = $this->options_prefix . 'org_id';
+		$option = self::$options_prefix . 'org_id';
 		$value = get_option( $option, '' );
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -193,7 +193,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_url_live( $args ) {
-		$option = $this->options_prefix . 'url_live';
+		$option = self::$options_prefix . 'url_live';
 		$value = get_option( $option, '' );
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -208,7 +208,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_url_staging( $args ) {
-		$option = $this->options_prefix . 'url_staging';
+		$option = self::$options_prefix . 'url_staging';
 		$value = get_option( $option, '' );
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -223,7 +223,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_url_toggle( $args ) {
-		$option = $this->options_prefix . 'url_toggle';
+		$option = self::$options_prefix . 'url_toggle';
 		$value = get_option( $option, 'staging' );
 		echo sprintf(
 			'<input name="%1$s" id="%1$s-staging" type="radio" value="staging" %2$s><label for="%1$s-staging">%4$s</label>
@@ -242,7 +242,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_default_sf_id( $args ) {
-		$option = $this->options_prefix . 'org_name';
+		$option = self::$options_prefix . 'default_sf_id';
 		$value = get_option( $option, '' );
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
