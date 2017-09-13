@@ -144,8 +144,6 @@ class NewsMatchDonation_Shortcode {
 	 * @param array  $data      The data necessary to populate the template.
 	 */
 	private function render( $file_path, $data = null ) {
-		( $data ) ? extract( $data ) : null;
-
 		ob_start();
 
 		include( $file_path );
