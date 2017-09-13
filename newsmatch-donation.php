@@ -13,6 +13,8 @@ define( 'NMD_PLUGIN_FILE', __FILE__ );
 
 /**
  * Set up the plugin
+ *
+ * @package NewsMatchDonation
  */
 class NewsMatchDonation {
 	public function __construct() {

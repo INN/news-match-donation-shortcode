@@ -1,6 +1,8 @@
 <?php
 /**
  * The class for the News Match Donation Shortcode, and associated functions
+ *
+ * @package NewsMatchDonation\Shortcode
  */
 
 /**
