@@ -10,11 +10,19 @@
  */
 class NewsMatchDonation_Shortcode {
 	/**
+	 * The prefix used for this plugin's options saved in the options table
+	 *
+	 * @var string $options_prefix The prefix for this plugin's options saved in the options table
+	 */
+	protected $option_prefix = '';
+
+	/**
 	 * The constructor
 	 */
 	public function __construct() {
-		add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ) );
+		$this->option_prefix = NewsMatchDonation_Settings::$options_prefix;
 
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ) );
 		add_shortcode( 'newsmatch_donation_form', array( $this, 'donation_form_shortcode' ) );
 	}
 
@@ -72,6 +80,37 @@ class NewsMatchDonation_Shortcode {
 	}
 
 	/**
+	 * Get the URL start for the form that we're using, appropriately escaped
+	 *
+	 * @return string The URL
+	 */
+	private function get_url() {
+		if ( get_option( $this->option_prefix . 'url_toggle' ) === 'staging' ) {
+			return esc_url( get_option( $this->option_prefix . 'url_staging', '' ) );
+		} else {
+			return esc_url( get_option( $this->option_prefix . 'url_live', '' ) );
+		}
+	}
+
+	/**
+	 * Get the campaign ID, appropriately escaped
+	 *
+	 * @return string The Salesforce Campaign ID
+	 */
+	private function get_sf_campaign_id() {
+		return esc_attr( get_option( $this->option_prefix . 'sf_campaign_id', '' ) );
+	}
+
+	/**
+	 * Get the org ID, appropriately escaped
+	 *
+	 * @return string The organization's ID
+	 */
+	private function get_org_id() {
+		return esc_attr( get_option( $this->option_prefix . 'org_id', '' ) );
+	}
+
+	/**
 	 * Get the view for the specified file path.
 	 *
 	 * @param  string $view_path The path to the desired view file.
@@ -82,8 +121,9 @@ class NewsMatchDonation_Shortcode {
 		$path_to_view = dirname( NMD_PLUGIN_FILE ) . $view_path;
 		$view_data = shortcode_atts(
 			array(
-				'url' => 'https://checkout.fundjournalism.org',
-				'sf_campaign_id' => '',
+				'url' => $this->get_url(),
+				'org_id' => $this->get_org_id(),
+				'sf_campaign_id' => $this->get_sf_campaign_id(),
 				'amount' => '15',
 				'level' => 'individual',
 			),

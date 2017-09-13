@@ -225,6 +225,10 @@ class NewsMatchDonation_Settings {
 	public function field_url_toggle( $args ) {
 		$option = self::$options_prefix . 'url_toggle';
 		$value = get_option( $option, 'staging' );
+		if ( ! in_array( $value, array( 'staging', 'live' ), true ) ) {
+			$value = 'staging';
+		}
+
 		echo sprintf(
 			'<input name="%1$s" id="%1$s-staging" type="radio" value="staging" %2$s><label for="%1$s-staging">%4$s</label>
 			<input name="%1$s" id="%1$s-live" type="radio" value="live" %3$s><label for="%1$s-live">%5$s</label>',

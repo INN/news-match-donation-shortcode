@@ -21,10 +21,10 @@ class NewsMatchDonation {
 	 * Set up the plugin
 	 */
 	public function __construct() {
-		require_once( __DIR__ . '/classes/class-newsmatchdonation-shortcode.php' );
-		new NewsMatchDonation_Shortcode();
 		require_once( __DIR__ . '/classes/class-newsmatchdonation-settings.php' );
 		new NewsMatchDonation_Settings();
+		require_once( __DIR__ . '/classes/class-newsmatchdonation-shortcode.php' );
+		new NewsMatchDonation_Shortcode();
 	}
 }
 
