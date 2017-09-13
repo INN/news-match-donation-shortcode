@@ -162,11 +162,11 @@ class NewsMatchDonation_Settings {
 	 */
 	public function field_org_name( $args ) {
 		$option = $this->options_prefix . 'org_name';
-		$org_name = get_option( $option, '' );
+		$value = get_option( $option, '' );
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $org_name ),
-			esc_attr( $option )
+			esc_attr( $option ),
+			esc_attr( $value )
 		);
 	}
 
@@ -179,11 +179,11 @@ class NewsMatchDonation_Settings {
 	 */
 	public function field_org_id( $args ) {
 		$option = $this->options_prefix . 'org_id';
-		$org_name = get_option( $option, '' );
+		$value = get_option( $option, '' );
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $org_name ),
-			esc_attr( $option )
+			esc_attr( $option ),
+			esc_attr( $value )
 		);
 	}
 
@@ -194,11 +194,11 @@ class NewsMatchDonation_Settings {
 	 */
 	public function field_url_live( $args ) {
 		$option = $this->options_prefix . 'url_live';
-		$org_name = get_option( $option, '' );
+		$value = get_option( $option, '' );
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $org_name ),
-			esc_attr( $option )
+			esc_attr( $option ),
+			esc_attr( $value )
 		);
 	}
 
@@ -209,11 +209,11 @@ class NewsMatchDonation_Settings {
 	 */
 	public function field_url_staging( $args ) {
 		$option = $this->options_prefix . 'url_staging';
-		$org_name = get_option( $option, '' );
+		$value = get_option( $option, '' );
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $org_name ),
-			esc_attr( $option )
+			esc_attr( $option ),
+			esc_attr( $value )
 		);
 	}
 
@@ -224,13 +224,13 @@ class NewsMatchDonation_Settings {
 	 */
 	public function field_url_toggle( $args ) {
 		$option = $this->options_prefix . 'url_toggle';
-		$org_name = get_option( $option, 'staging' );
+		$value = get_option( $option, 'staging' );
 		echo sprintf(
 			'<input name="%1$s" id="%1$s-staging" type="radio" value="staging" %2$s><label for="%1$s-staging">%4$s</label>
 			<input name="%1$s" id="%1$s-live" type="radio" value="live" %3$s><label for="%1$s-live">%5$s</label>',
-			esc_attr( $org_name ),
-			checked( $option, 'staging' ), // Checked for testing.
-			checked( $option, 'live' ), // Checked for live.
+			esc_attr( $option ),
+			checked( $value, 'staging', false ), // Checked for testing.
+			checked( $value, 'live', false ), // Checked for live.
 			esc_html__( 'Staging', 'newsmatch' ),
 			esc_html__( 'Live', 'newsmatch' )
 		);
@@ -243,11 +243,11 @@ class NewsMatchDonation_Settings {
 	 */
 	public function field_default_sf_id( $args ) {
 		$option = $this->options_prefix . 'org_name';
-		$org_name = get_option( $option, '' );
+		$value = get_option( $option, '' );
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $org_name ),
-			esc_attr( $option )
+			esc_attr( $option ),
+			esc_attr( $value )
 		);
 	}
 }
