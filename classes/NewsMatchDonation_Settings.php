@@ -66,6 +66,13 @@ class NewsMatchDonation_Settings {
 	 * All the settings
 	 */
 	public function register_settings() {
+		add_settings_section(
+			$this->settings_section,
+			__( 'News Match Shortcode Settings', 'newsmatch' ),
+			array( $this, 'settings_section_callback' ),
+			$this->settings_page
+		);
+
 		register_setting( $this->settings_group, $this->options_prefix . 'field_org_name', 'sanitize_text_field' );
 		add_settings_field(
 			$this->options_prefix . 'org_name',
@@ -122,6 +129,13 @@ class NewsMatchDonation_Settings {
 	}
 
 	/**
+	 * Settings section description
+	 */
+	public function settings_section_callback() {
+		echo 'aaa';
+	}
+
+	/**
 	 * output the input field for the organization's name
 	 */
 	public function field_org_name( $args ) {
@@ -153,7 +167,6 @@ class NewsMatchDonation_Settings {
 	 * output the input field for the live donation form URL
 	 */
 	public function field_url_live( $args ) {
-		error_log(var_export( 'poop', true));
 		$option = $this->options_prefix . 'url_live';
 		$org_name = get_option( $option, '' );
 		echo sprintf(
