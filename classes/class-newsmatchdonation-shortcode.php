@@ -9,6 +9,9 @@
  * Register a shortcode
  */
 class NewsMatchDonation_Shortcode {
+	/**
+	 * The constructor
+	 */
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ) );
 
@@ -39,7 +42,7 @@ class NewsMatchDonation_Shortcode {
 	 * @return string The HTML markup for the donation form.
 	 */
 	public function donation_form_shortcode( $atts ) {
-		if ( isset( $atts['type'] ) && $atts['type'] == 'select' ) {
+		if ( isset( $atts['type'] ) && 'select' === $atts['type'] ) {
 			return $this->render_view( '/views/rr-donation-form-select.view.php', $atts );
 		} else {
 			return $this->render_view( '/views/rr-donation-form-buttons.view.php', $atts );
@@ -47,8 +50,8 @@ class NewsMatchDonation_Shortcode {
 	}
 
 	/**
-	* Register the donation plugin's shortcode's CSS and Javascript files.
-	*/
+	 * Register the donation plugin's shortcode's CSS and Javascript files.
+	 */
 	public function register_assets() {
 		wp_register_style(
 			'newsmatch-donation',
@@ -72,7 +75,7 @@ class NewsMatchDonation_Shortcode {
 	 * Get the view for the specified file path.
 	 *
 	 * @param  string $view_path The path to the desired view file.
-	 * @param  array $atts The attributes passed in via the shortcode.
+	 * @param  array  $atts The attributes passed in via the shortcode.
 	 * @return string the HTML for the specified view.
 	 */
 	private function render_view( $view_path, $atts ) {
@@ -80,15 +83,14 @@ class NewsMatchDonation_Shortcode {
 		$view_data = shortcode_atts(
 			array(
 				'url' => 'https://checkout.fundjournalism.org',
-				//'url' => 'https://vosd-stripe-test.herokuapp.com/',
 				'sf_campaign_id' => '',
 				'amount' => '15',
 				'level' => 'individual',
 			),
 		$atts);
 
-		// make sure that this is a valid value
-		if ( ! in_array( $view_data['level'], array( 'individual', 'nonprofit', 'business' ) ) ) {
+		// Make sure that this is a valid value.
+		if ( ! in_array( $view_data['level'], array( 'individual', 'nonprofit', 'business' ), true ) ) {
 			$view_data['level'] = 'individual';
 		}
 
@@ -96,12 +98,11 @@ class NewsMatchDonation_Shortcode {
 	}
 
 	/**
-	* Build the HTML to display the output of the shortcode.
-	*
-	* @param $file_path The path to the template containing the HTML to display
-	* the donation shortcode.
-	* @param $data The data necessary to populate the template.
-	*/
+	 * Build the HTML to display the output of the shortcode.
+	 *
+	 * @param string $file_path The path to the template containing the HTML to display the donation shortcode.
+	 * @param array  $data      The data necessary to populate the template.
+	 */
 	private function render( $file_path, $data = null ) {
 		( $data ) ? extract( $data ) : null;
 
