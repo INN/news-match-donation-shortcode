@@ -98,8 +98,8 @@ class NewsMatchDonation_Shortcode {
 		$view_data = shortcode_atts(
 			array(
 				'url' => $this->get_url(),
-				'org_id' => esc_attr( get_option( $this->option_prefix . 'org_id', '' ) );
-				'sf_campaign_id' => esc_attr( get_option( $this->option_prefix . 'sf_campaign_id', '' ) );
+				'org_id' => esc_attr( get_option( $this->option_prefix . 'org_id', '' ) ),
+				'sf_campaign_id' => esc_attr( get_option( $this->option_prefix . 'sf_campaign_id', '' ) ),
 				'amount' => '15',
 				'level' => 'individual',
 			),
