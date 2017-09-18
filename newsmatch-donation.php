@@ -1,5 +1,5 @@
 <?php
-/**
+/*
 Plugin Name: News Match Donation Shortcode
 Plugin URI: http://fairwaytech.com
 Description:  Provides methods to integrate with the donation application hosted at checkout.voiceofsandiego.org

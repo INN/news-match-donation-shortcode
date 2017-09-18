@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * The class for the News Match Donation plugin's setting
  *
  * @package NewsMatchDonation\Settings
@@ -14,21 +14,21 @@ class NewsMatchDonation_Settings {
 	 *
 	 * @var string $settings_page The settings page slug
 	 */
-	public $settings_page = 'newsmatchdonation';
+	private $settings_page = 'newsmatchdonation';
 
 	/**
 	 * The slug of the settings group
 	 *
 	 * @var string $settings_group The settings group slug
 	 */
-	public $settings_group = 'newsmatchdonation_group';
+	private $settings_group = 'newsmatchdonation_group';
 
 	/**
 	 * The slug of the settings section
 	 *
 	 * @var string $settings_section The slug of the settings section
 	 */
-	public $settings_section = 'newsmatchdonation_section';
+	private $settings_section = 'newsmatchdonation_section';
 
 	/**
 	 * The prefix used for this plugin's options saved in the options table
@@ -51,8 +51,8 @@ class NewsMatchDonation_Settings {
 	public function register_submenu_page() {
 		add_submenu_page(
 			'plugins.php',
-			__( 'News Match Donation Shortcode', 'newsmatch' ),
-			__( 'News Match Shortcode', 'newsmatch' ),
+			esc_html__( 'News Match Donation Shortcode', 'newsmatch' ),
+			esc_html__( 'News Match Shortcode', 'newsmatch' ),
 			'manage_options', // permissions level is this because that seems right for site-wide config options.
 			$this->settings_page,
 			array( $this, 'settings_page_output' )
@@ -66,7 +66,7 @@ class NewsMatchDonation_Settings {
 	 */
 	public function settings_page_output() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'scaip' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'newsmatch' ) );
 		}
 		?>
 		<div class="wrap newsmatch-admin">
@@ -230,8 +230,14 @@ class NewsMatchDonation_Settings {
 		}
 
 		echo sprintf(
-			'<input name="%1$s" id="%1$s-staging" type="radio" value="staging" %2$s><label for="%1$s-staging">%4$s</label>
-			<input name="%1$s" id="%1$s-live" type="radio" value="live" %3$s><label for="%1$s-live">%5$s</label>',
+			'<p><label>
+				<input name="%1$s" id="%1$s-staging" type="radio" value="staging" %2$s>
+				%4$s
+			</label></p>
+			<p><label>
+				<input name="%1$s" id="%1$s-live" type="radio" value="live" %3$s>
+				%5$s
+			</label></p>',
 			esc_attr( $option ),
 			checked( $value, 'staging', false ), // Checked for testing.
 			checked( $value, 'live', false ), // Checked for live.
