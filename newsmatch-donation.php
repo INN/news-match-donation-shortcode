@@ -1,11 +1,10 @@
 <?php
 /*
 Plugin Name: News Match Donation Shortcode
-Plugin URI: http://fairwaytech.com
 Description:  Provides methods to integrate with the donation application hosted at checkout.voiceofsandiego.org
 Version: 0.1
 Author:  inn_nerds, Fairway Technologies
-Author URI: http://fairwaytech.com
+Author URI: https://labs.inn.org/
 */
 
 // Plugin directory normalization.
