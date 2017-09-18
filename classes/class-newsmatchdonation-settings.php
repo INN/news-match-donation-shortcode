@@ -88,7 +88,7 @@ class NewsMatchDonation_Settings {
 	public function register_settings() {
 		add_settings_section(
 			$this->settings_section,
-			__( 'News Match Shortcode Settings', 'newsmatch' ),
+			esc_html__( 'News Match Shortcode Settings', 'newsmatch' ),
 			array( $this, 'settings_section_callback' ),
 			$this->settings_page
 		);
