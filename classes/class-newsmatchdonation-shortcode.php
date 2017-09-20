@@ -44,10 +44,25 @@ class NewsMatchDonation_Shortcode {
 	 * Add a donation form with a Salesforce campaign id of "foo" and do not specify a default donation amount:
 	 * [newsmatch_donation_form sf_campaign_id="foo"]
 	 *
+	 *
+	 * And now all of the same, but using a dropdown instead of buttons for the donation types.
+	 *
+	 * [newsmatch_donation_form type="select"]
+	 *
+	 * [newsmatch_donation_form amount="50" type="select"]
+	 *
+	 * [newsmatch_donation_form sf_campaign_id="foo" amount="25" type="select"]
+	 *
+	 * [newsmatch_donation_form sf_campaign_id="foo" type="select"]
+	 *
 	 * @param  array $atts The attribute values passed in through the shortcode.
 	 * @return string The HTML markup for the donation form.
 	 */
 	public function donation_form_shortcode( $atts ) {
+		// Now that we know the shortcode will be on the page, enqueue the style and script.
+		wp_enqueue_style( 'newsmatch-donation', null, null, null, true );
+		wp_enqueue_script( 'newsmatch-donation', null, null, null, true );
+
 		if ( isset( $atts['type'] ) && 'select' === $atts['type'] ) {
 			return $this->render_view( '/views/rr-donation-form-select.view.php', $atts );
 		} else {
@@ -59,12 +74,12 @@ class NewsMatchDonation_Shortcode {
 	 * Register the donation plugin's shortcode's CSS and Javascript files.
 	 */
 	public function register_assets() {
-		wp_enqueue_style(
+		wp_register_style(
 			'newsmatch-donation',
 			plugins_url( 'assets/css/donation.css', NMD_PLUGIN_FILE )
 		);
 
-		wp_enqueue_script(
+		wp_register_script(
 			'newsmatch-donation',
 			plugins_url( 'assets/js/donation.js', NMD_PLUGIN_FILE ),
 			array( 'jquery' ),
