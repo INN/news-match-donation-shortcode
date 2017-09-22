@@ -12,9 +12,7 @@
 		</select>
 		<div class="error-message" role="alert" style="display: none;"></div>
 		<div class="donation-level-message"></div>
-		<div>
-			<button type="submit">Give Now</button>
-		</div>
+		<button type="submit">Give Now</button>
 		<input class="newsmatch-sf-campaign-id" name="newsmatch-sf-campaign-id" type="hidden" value="<?php echo esc_attr( $data['sf_campaign_id'] ); ?>">
 	</form>
 </div>

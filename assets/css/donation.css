@@ -1,3 +1,4 @@
+.form-group label,
 .donation-frequencies input[type="radio"] {
   border: 0;
   clip: rect(0 0 0 0);
@@ -13,7 +14,17 @@
     float: left;
     margin-bottom:1em;
 }
+
+.donation-level-message {
+  clear: both;
+  float: left;
+
+  margin: 1em 0;
+}
 .newsmatch-donation-form button[type="submit"] {
+  float: left;
+  clear: left;
+
   background: #17b0ea;
   border:none;
   font-size: 17px;
@@ -67,6 +78,7 @@ input.newsmatch-donation-amount.form-control {
   margin: 0;
   text-transform: uppercase;
 }
+
 label.donation-frequency input {
   display: none;
 }
@@ -93,10 +105,6 @@ select.donation-frequencies {
 }
 
 @media screen and (max-width: 480px) {
-  .newsmatch-donation-amount-label {
-    width: auto;
-  }
-
   .newsmatch-donation-amount {
     display: inline;
     max-width: 101px;
@@ -113,10 +121,6 @@ select.donation-frequencies {
 }
 
 @media screen and (max-width: 320px) {
-  .newsmatch-donation-amount-label {
-    width: auto;
-  }
-
   .newsmatch-donation-amount {
     display: inline;
     max-width: 85px;
