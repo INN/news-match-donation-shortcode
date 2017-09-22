@@ -55,13 +55,22 @@ class NewsMatchDonation_Shortcode {
 	 *
 	 * [newsmatch_donation_form sf_campaign_id="foo" type="select"]
 	 *
+	 * This function also enqueues the script and stylesheet.
+	 *
+	 * Stylesheet enqueue can be disabled by a filter on newsmatch_donate_plugin_css_enqueue returning False.
+	 *
 	 * @param  array $atts The attribute values passed in through the shortcode.
 	 * @return string The HTML markup for the donation form.
 	 */
 	public function donation_form_shortcode( $atts ) {
 		// Now that we know the shortcode will be on the page, enqueue the style and script.
-		wp_enqueue_style( 'newsmatch-donation', null, null, null, true );
 		wp_enqueue_script( 'newsmatch-donation', null, null, null, true );
+
+		// Provide way for someone to disable this style
+		$whether = apply_filters( 'newsmatch_donate_plugin_css_enqueue', true );
+		if ( false !== $whether ) {
+			wp_enqueue_style( 'newsmatch-donation', null, null, null, true );
+		}
 
 		if ( isset( $atts['type'] ) && 'select' === $atts['type'] ) {
 			return $this->render_view( '/views/rr-donation-form-select.view.php', $atts );
