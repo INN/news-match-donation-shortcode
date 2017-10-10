@@ -161,79 +161,61 @@ function getDonationLevel(amount, frequency, type, form) {
 	console.log("getDonationLevel::roundedAmount = ", roundedAmount);
 	var level = '';
 	var supporter = false;
-	if (type == 'business') {
-		if ( frequency === 'monthly' ) {
-			// detemine level and update text based on monthly frequency
-			if ( roundedAmount > 0 && roundedAmount <= 20.83 ) {
-				supporter = true;
-				level = 'a <strong>Supporting Non-member</strong>';
-			} else if ( roundedAmount > 20.83 && roundedAmount <= 83.33 ) {
-				level = 'a <strong>Community Partner</strong>';
-			} else if ( roundedAmount > 83.33 ) {
-				level = 'a <strong>Leadership Circle</strong>';
-			}
-		} else {
-			// detemine level and update text based on yearly frequency
-			if ( roundedAmount < 250 ) {
-				supporter = true;
-				level = 'a <strong>Supporting Non-member</strong>';
-			} else if ( roundedAmount >= 250 && roundedAmount < 1000 ) {
-				level = 'a <strong>Community Partner</strong>';
-			} else if ( roundedAmount >= 1000 ) {
-				level = 'a <strong>Leadership Circle</strong>';
-			}
+	
+	if (frequency === 'monthly') {
+		// detemine level and update text based on monthly frequency
+		// if (roundedAmount > 0 && roundedAmount <= 2.083 ) {
+		// 	supporter = true;
+		// 	level = 'a <strong>Supporting Non-member</strong>';
+		// } else if (roundedAmount > 2.083 && roundedAmount <= 8.34) {
+		// 	level = 'an <strong>Ally</strong>';
+		// } else if (roundedAmount > 8.34 && roundedAmount <= 20.83) {
+		// 	level = 'an <strong>Enthusiast</strong>';
+		// } else if (roundedAmount > 20.83 && roundedAmount <= 83.34) {
+		// 	level = 'an <strong>Advocate</strong>';
+		// } else if (roundedAmount > 83.34) {
+		// 	level = 'an <strong>Ambassador</strong>';
+		// }
+
+		if (roundedAmount > 0 && roundedAmount < levels.l1_min/12 ) {
+			supporter = true;
+			level = levels.gd_a + ' <strong>' + levels.gd_name + '</strong>';
+		} else if (roundedAmount >= levels.l1_min/12 && roundedAmount < levels.l1_max/12) {
+			level = levels.l1_a + ' <strong>' + levels.l1_name + '</strong>';
+		} else if (roundedAmount >= levels.l2_min/12 && roundedAmount < levels.l2_max/12) {
+			level = levels.l2_a + ' <strong>' + levels.l2_name + '</strong>';
+		} else if (roundedAmount >= levels.l3_min/12 && roundedAmount < levels.l3_max/12) {
+			level = levels.l3_a + ' <strong>' + levels.l3_name + '</strong>';
+		} else if (roundedAmount >= levels.l3_max/12) {
+			level = levels.l4_a + ' <strong>' + levels.l4_name + '</strong>';
 		}
-	} else if (type == 'nonprofit') {
-		if ( frequency === 'monthly' ) {
-			// detemine level and update text based on monthly frequency
-			if ( roundedAmount > 0 && roundedAmount <= 10.416 ) {
-				supporter = true;
-				level = 'a <strong>Supporting Non-member</strong>';
-			} else if ( roundedAmount > 10.416 && roundedAmount <= 41.66 ) {
-				level = 'a <strong>Community Partner</strong>';
-			} else if ( roundedAmount > 41.66 ) {
-				level = 'a <strong>Leadership Circle</strong>';
-			}
-		} else {
-			// detemine level and update text based on yearly frequency
-			if ( roundedAmount < 125 ) {
-				supporter = true;
-				level = 'a <strong>Supporting Non-member</strong>';
-			} else if ( roundedAmount >= 125 && roundedAmount < 500 ) {
-				level = 'a <strong>Community Partner</strong>';
-			} else if ( roundedAmount >= 500 ) {
-				level = 'a <strong>Leadership Circle</strong>';
-			}
-		}
+
 	} else {
-		if (frequency === 'monthly') {
-			// detemine level and update text based on monthly frequency
-			if (roundedAmount > 0 && roundedAmount <= 2.083 ) {
-				supporter = true;
-				level = 'a <strong>Supporting Non-member</strong>';
-			} else if (roundedAmount > 2.083 && roundedAmount <= 8.34) {
-				level = 'an <strong>Ally</strong>';
-			} else if (roundedAmount > 8.34 && roundedAmount <= 20.83) {
-				level = 'an <strong>Enthusiast</strong>';
-			} else if (roundedAmount > 20.83 && roundedAmount <= 83.34) {
-				level = 'an <strong>Advocate</strong>';
-			} else if (roundedAmount > 83.34) {
-				level = 'an <strong>Ambassador</strong>';
-			}
-		} else {
-			// detemine level and update text based on yearly frequency
-			if (roundedAmount < 25) {
-				supporter = true;
-				level = 'a <strong>Supporting Non-member</strong>';
-			} else if (roundedAmount >= 25 && roundedAmount < 100) {
-				level = 'an <strong>Ally</strong>';
-			} else if (roundedAmount >= 100 && roundedAmount < 250) {
-				level = 'an <strong>Enthusiast</strong>';
-			} else if (roundedAmount >= 250 && roundedAmount < 1000) {
-				level = 'an <strong>Advocate</strong>';
-			} else if (roundedAmount >= 1000) {
-				level = 'an <strong>Ambassador</strong>';
-			}
+		// detemine level and update text based on yearly frequency
+		// if (roundedAmount < 25) {
+		// 	supporter = true;
+		// 	level = 'a <strong>Supporting Non-member</strong>';
+		// } else if (roundedAmount >= 25 && roundedAmount < 100) {
+		// 	level = 'an <strong>Ally</strong>';
+		// } else if (roundedAmount >= 100 && roundedAmount < 250) {
+		// 	level = 'an <strong>Enthusiast</strong>';
+		// } else if (roundedAmount >= 250 && roundedAmount < 1000) {
+		// 	level = 'an <strong>Advocate</strong>';
+		// } else if (roundedAmount >= 1000) {
+		// 	level = 'an <strong>Ambassador</strong>';
+		// }
+
+		if (roundedAmount > 0 && roundedAmount < levels.l1_min ) {
+			supporter = true;
+			level = levels.gd_a + ' <strong>' + levels.gd_name + '</strong>';
+		} else if (roundedAmount >= levels.l1_min && roundedAmount < levels.l1_max) {
+			level = levels.l1_a + ' <strong>' + levels.l1_name + '</strong>';
+		} else if (roundedAmount >= levels.l2_min && roundedAmount < levels.l2_max) {
+			level = levels.l2_a + ' <strong>' + levels.l2_name + '</strong>';
+		} else if (roundedAmount >= levels.l3_min && roundedAmount < levels.l3_max) {
+			level = levels.l3_a + ' <strong>' + levels.l3_name + '</strong>';
+		} else if (roundedAmount >= levels.l3_max) {
+			level = levels.l4_a + ' <strong>' + levels.l4_name + '</strong>';
 		}
 	}
 
