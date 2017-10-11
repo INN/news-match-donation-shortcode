@@ -324,6 +324,16 @@ class NewsMatchDonation_Settings {
 			$this->settings_page,
 			$this->donor_levels_section
 		);
+
+		// Level 4 Max (minimum dollar emount to qualify)
+		register_setting( $this->settings_group, self::$options_prefix . 'l4_max', 'sanitize_text_field' );
+		add_settings_field(
+			self::$options_prefix . 'l4_max',
+			__( 'Level 4 max', 'newsmatch' ),
+			array( $this, 'field_l4_max' ),
+			$this->settings_page,
+			$this->donor_levels_section
+		);
 	}
 
 	/**
@@ -744,6 +754,24 @@ class NewsMatchDonation_Settings {
 	 */
 	public function field_l4_min( $args ) {
 		$option = self::$options_prefix . 'l4_min';
+		$value = get_option( $option, '' );
+		echo sprintf(
+			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
+			esc_attr( $option ),
+			esc_attr( $value )
+		);
+		echo '<p><i>minimum dollar amount to qualify for this level</i></p>';
+	}
+
+	/**
+	 * Output the input field for the level 4 max
+	 *
+	 * This is part of the donation form URL
+	 *
+	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
+	 */
+	public function field_l4_max( $args ) {
+		$option = self::$options_prefix . 'l4_max';
 		$value = get_option( $option, '' );
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',

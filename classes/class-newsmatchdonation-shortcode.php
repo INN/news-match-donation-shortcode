@@ -147,10 +147,11 @@ class NewsMatchDonation_Shortcode {
 			'l4_a' => esc_attr( get_option( $this->option_prefix . 'l4_a', '' ) ),
 			'l4_name' => esc_attr( get_option( $this->option_prefix . 'l4_name', '' ) ),
 			'l4_min' => esc_attr( get_option( $this->option_prefix . 'l4_min', '' ) ),
+			'l4_max' => esc_attr( get_option( $this->option_prefix . 'l4_max', '' ) ),
 		);
 
 
-		echo '<script type="text/javascript">var levels = ' . json_encode( $donor_levels ) . '</script>';
+		echo '<script type="text/javascript">var donor_levels = ' . json_encode( $donor_levels ) . '</script>';
 		//echo '<script type="text/javascript">var my_json_object = ' . 'test' . '</script>';
 
 		// Make sure that this is a valid value.
