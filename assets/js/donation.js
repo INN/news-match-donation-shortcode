@@ -9,6 +9,9 @@ jQuery(document).ready(function() {
 		donationInit($form);
 	});
 
+	// if hitting the page via the browser back button, the correct input needs to be triggered
+	$('.donation-frequency.selected input').trigger('click');
+
 	$('.donation-frequency').keypress(function(e){
 	    if(e.keyCode === 0 || e.keyCode === 32 || e.keyCode === 13 ){
 	        $(this).find('input').trigger('click');
