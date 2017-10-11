@@ -164,35 +164,45 @@ function getDonationLevel(amount, frequency, type, form) {
 	console.log("getDonationLevel::roundedAmount = ", roundedAmount);
 	var level = '';
 	var supporter = false;
-	
+
+	var levels = [],
+		l1 = [donor_levels.l1_a, donor_levels.l1_name, donor_levels.l1_min, donor_levels.l1_max],
+		l2 = [donor_levels.l2_a, donor_levels.l2_name, donor_levels.l2_min, donor_levels.l2_max],
+		l3 = [donor_levels.l3_a, donor_levels.l3_name, donor_levels.l3_min, donor_levels.l3_max],
+		l4 = [donor_levels.l4_a, donor_levels.l4_name, donor_levels.l4_min, donor_levels.l4_max];
+
+	if (l1[1].length > 0) {levels.push(l1)};
+	if (l2[1].length > 0) {levels.push(l2)};
+	if (l3[1].length > 0) {levels.push(l3)};
+	if (l4[1].length > 0) {levels.push(l4)};
+
+	var ll = levels.length;
+
 	if (frequency === 'monthly') {
 
-		if (roundedAmount > 0 && roundedAmount < levels.l1_min/12 ) {
-			supporter = true;
-			level = levels.gd_a + ' <strong>' + levels.gd_name + '</strong>';
-		} else if (roundedAmount >= levels.l1_min/12 && roundedAmount < levels.l1_max/12) {
-			level = levels.l1_a + ' <strong>' + levels.l1_name + '</strong>';
-		} else if (roundedAmount >= levels.l2_min/12 && roundedAmount < levels.l2_max/12) {
-			level = levels.l2_a + ' <strong>' + levels.l2_name + '</strong>';
-		} else if (roundedAmount >= levels.l3_min/12 && roundedAmount < levels.l3_max/12) {
-			level = levels.l3_a + ' <strong>' + levels.l3_name + '</strong>';
-		} else if (roundedAmount >= levels.l4_max/12) {
-			level = levels.l4_a + ' <strong>' + levels.l4_name + '</strong>';
+		for (var i=0; i<ll; i++) {
+			if (roundedAmount > 0 && roundedAmount < donor_levels.l1_min/12 ) {
+				supporter = true;
+				level = donor_levels.gd_a + ' <strong>' + donor_levels.gd_name + '</strong>';		
+			} else if (roundedAmount >= levels[i][2]/12 && roundedAmount < levels[i][3]/12) {
+				level = levels[i][0] + ' <strong>' + levels[i][1] + '</strong>';
+			}
+		}
+		if (roundedAmount > levels[ll-1][2]/12) {
+			level = levels[ll-1][0] + ' <strong>' + levels[ll-1][1] + '</strong>';	
 		}
 
 	} else {
-
-		if (roundedAmount > 0 && roundedAmount < levels.l1_min ) {
-			supporter = true;
-			level = levels.gd_a + ' <strong>' + levels.gd_name + '</strong>';
-		} else if (roundedAmount >= levels.l1_min && roundedAmount < levels.l1_max) {
-			level = levels.l1_a + ' <strong>' + levels.l1_name + '</strong>';
-		} else if (roundedAmount >= levels.l2_min && roundedAmount < levels.l2_max) {
-			level = levels.l2_a + ' <strong>' + levels.l2_name + '</strong>';
-		} else if (roundedAmount >= levels.l3_min && roundedAmount < levels.l3_max) {
-			level = levels.l3_a + ' <strong>' + levels.l3_name + '</strong>';
-		} else if (roundedAmount >= levels.l4_max) {
-			level = levels.l4_a + ' <strong>' + levels.l4_name + '</strong>';
+		for (var i=0; i<ll; i++) {
+			if (roundedAmount > 0 && roundedAmount < donor_levels.l1_min ) {
+				supporter = true;
+				level = donor_levels.gd_a + ' <strong>' + donor_levels.gd_name + '</strong>';		
+			} else if (roundedAmount >= levels[i][2] && roundedAmount < levels[i][3]) {
+				level = levels[i][0] + ' <strong>' + levels[i][1] + '</strong>';
+			} 
+		}
+		if (roundedAmount > levels[ll-1][2]) {
+			level = levels[ll-1][0] + ' <strong>' + levels[ll-1][1] + '</strong>';	
 		}
 	}
 
@@ -200,7 +210,7 @@ function getDonationLevel(amount, frequency, type, form) {
 	if (supporter){
 		message = 'This gift will make you ' + level + '.';
 	} else {
-		message = 'This gift will make you ' + level + ' member.';
+		message = 'This gift will make you ' + level + '.';
 	}
 	return message;
 }
