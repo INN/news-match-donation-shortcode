@@ -160,12 +160,10 @@ function getDonationLevel(amount, frequency, type, form) {
 		return; // TODO: Handle error condition
 	}
 
-	var roundedAmount = +(parseFloat(amount).toFixed(2));
-	console.log("getDonationLevel::roundedAmount = ", roundedAmount);
-	var level = '';
-	var supporter = false;
-
-	var levels = [],
+	var roundedAmount = +(parseFloat(amount).toFixed(2)),
+		supporter = false,
+		level = '',
+		levels = [],
 		l1 = [donor_levels.l1_a, donor_levels.l1_name, donor_levels.l1_min, donor_levels.l1_max],
 		l2 = [donor_levels.l2_a, donor_levels.l2_name, donor_levels.l2_min, donor_levels.l2_max],
 		l3 = [donor_levels.l3_a, donor_levels.l3_name, donor_levels.l3_min, donor_levels.l3_max],
