@@ -347,7 +347,7 @@ class NewsMatchDonation_Settings {
 	 * Settings section description for donor levels
 	 */
 	public function donor_levels_section_callback() {
-		echo '';
+		echo esc_html__( 'In this section, set the names and donation amounts for the various donation levels. You can configure up to four donation levels, or use fewer.' , 'newsmatch' );
 	}
 
 	/**
@@ -471,7 +471,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>a, an, the</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'a, an, the: This is an article that refers to a donor.', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 	/**
@@ -489,7 +493,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>Supporter, Donor, Sustainer, etc.</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'Supporter, Donor, Sustainer, etc.', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 	/**
@@ -507,7 +515,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>a, an, the</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'a, an, the: This is an article that refers to a donor of this level.', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 	/**
@@ -525,7 +537,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>i.e. Friend</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'i.e. Friend', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 	/**
@@ -543,7 +559,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>minimum dollar amount to qualify for this level</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'minimum dollar amount to qualify for this level', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 	/**
@@ -561,7 +581,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>maximum dollar amount for this level</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'maximum dollar amount for this level', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 	/**
@@ -579,7 +603,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>a, an, the</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'a, an, the: This is an article that refers to a donor of this level.', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 	/**
@@ -597,7 +625,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>i.e. Ally</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'i.e. Ally', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 	/**
@@ -615,7 +647,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>minimum dollar amount to qualify for this level</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'minimum dollar amount to qualify for this level', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 	/**
@@ -633,7 +669,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>maximum dollar amount for this level</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'maximum dollar amount for this level', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 	/**
@@ -651,7 +691,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>a, an, the</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'a, an, the: This is an article that refers to a donor of this level.', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 	/**
@@ -669,7 +713,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>i.e. Champion</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'i.e. Champion', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 	/**
@@ -687,7 +735,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>minimum dollar amount to qualify for this level</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'minimum dollar amount to qualify for this level', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 	/**
@@ -705,7 +757,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>maximum dollar amount for this level</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'maximum dollar amount for this level', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 
@@ -724,7 +780,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>a, an, the</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'a, an, the: This is an article that refers to a donor of this level.', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 	/**
@@ -742,7 +802,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>i.e. Ambassador</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'i.e. Ambassador', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 	/**
@@ -760,7 +824,11 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>minimum dollar amount to qualify for this level</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'minimum dollar amount to qualify for this level', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 
 	/**
@@ -778,6 +846,10 @@ class NewsMatchDonation_Settings {
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
-		echo '<p><i>minimum dollar amount to qualify for this level</i></p>';
+		echo sprintf(
+			'<label for="%2$s"><i>%1$s</i></label>',
+			esc_html__( 'minimum dollar amount to qualify for this level', 'newsmatch' ),
+			esc_attr( $option )
+		);
 	}
 }
