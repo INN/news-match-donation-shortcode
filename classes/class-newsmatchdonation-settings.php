@@ -36,6 +36,50 @@ class NewsMatchDonation_Settings {
 	 * @var string $options_prefix The prefix for this plugin's options saved in the options table
 	 */
 	public static $options_prefix = 'nmds_';
+	
+	/**
+	 * The prefix used for the levels option
+	 *
+	 * @var string $levels_option The wp_option in the options table that contains the field levels.
+	 */
+	public $levels_option = '';
+
+	/**
+	 * Default value for the levels option
+	 *
+	 * @var array
+	 */
+	public $levels_default = array(
+		'gd' => array(
+			'a' => 'a',
+			'name' => 'Donor',
+		),
+		'l1' => array(
+			'a' => 'a',
+			'name' => 'Supporter',
+			'min' => 0,
+			'max' => 5,
+		),
+		'l2' => array(
+			'a' => 'an',
+			'name' => 'Ally',
+			'min' => 5,
+			'max' => 50,
+		),
+		'l3' => array(
+			'a' => 'a',
+			'name' => 'Champion',
+			'min' => 50,
+			'max' => 500,
+		),
+		'l4' => array(
+			'a' => 'an',
+			'name' => 'Ambassador',
+			'min' => 500,
+			'max' => 5000,
+		),
+
+	);
 
 	/**
 	 * Constructor for the settings class
@@ -43,6 +87,7 @@ class NewsMatchDonation_Settings {
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'register_submenu_page' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		$this->levels_option = self::$options_prefix . 'levels_';
 	}
 
 	/**
@@ -147,7 +192,9 @@ class NewsMatchDonation_Settings {
 			$this->settings_section
 		);
 
-		// Donor Levels Section
+		/*
+		 * Donor Levels Section
+		 */
 		add_settings_section(
 			$this->donor_levels_section,
 			esc_html__( 'Donor Levels Settings', 'newsmatch' ),
@@ -155,184 +202,225 @@ class NewsMatchDonation_Settings {
 			$this->settings_page
 		);
 
+		register_setting( $this->settings_group, self::$options_prefix . 'levels', 'sanitize_text_field' );
+
+		// let's just make levels option prefix simple and easy to remember:
+		$levels_option = $this->levels_option;
+
 		// Generic Donor Article (a/an/the)
-		register_setting( $this->settings_group, self::$options_prefix . 'gd_a', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'gd_a',
+			$levels_option . '[gd][a]',
 			__( 'Generic donor article', 'newsmatch' ),
 			array( $this, 'field_gd_a' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[gd][a]',
+			)
 		);
 
 		// Generic Donor Label (supporter/donor/sustainer/etc)
-		register_setting( $this->settings_group, self::$options_prefix . 'gd_name', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'gd_name',
+			$levels_option . '[gd][name]',
 			__( 'Generic donor label', 'newsmatch' ),
 			array( $this, 'field_gd_name' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[gd][name]',
+			)
 		);
 
 		// Level 1 Article (a/an/the)
-		register_setting( $this->settings_group, self::$options_prefix . 'l1_a', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'l1_a',
+			$levels_option . '[l1][a]',
 			__( 'Level 1 article', 'newsmatch' ),
 			array( $this, 'field_l1_a' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[l1][a]',
+			)
 		);
 
 		// Level 1 Name (supporter/donor/sustainer/etc)
-		register_setting( $this->settings_group, self::$options_prefix . 'l1_name', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'l1_name',
+			$levels_option . '[l1][name]',
 			__( 'Level 1 name', 'newsmatch' ),
 			array( $this, 'field_l1_name' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[l1][name]',
+			)
 		);
 
 		// Level 1 Min (minimum dollar emount to qualify)
-		register_setting( $this->settings_group, self::$options_prefix . 'l1_min', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'l1_min',
+			$levels_option . '[l1][min]',
 			__( 'Level 1 min', 'newsmatch' ),
 			array( $this, 'field_l1_min' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[l1][min]',
+			)
 		);
 
 		// Level 1 Max (maximum dollar amount)
-		register_setting( $this->settings_group, self::$options_prefix . 'l1_max', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'l1_max',
+			$levels_option . '[l1][max]',
 			__( 'Level 1 max', 'newsmatch' ),
 			array( $this, 'field_l1_max' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[l1][max]',
+			)
 		);
 
 		// Level 2 Article (a/an/the)
-		register_setting( $this->settings_group, self::$options_prefix . 'l2_a', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'l2_a',
+			$levels_option . '[l2][a]',
 			__( 'Level 2 article', 'newsmatch' ),
 			array( $this, 'field_l2_a' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[l2][a]',
+			)
 		);
 
 		// Level 2 Name (supporter/donor/sustainer/etc)
-		register_setting( $this->settings_group, self::$options_prefix . 'l2_name', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'l2_name',
+			$levels_option . '[l2][name]',
 			__( 'Level 2 name', 'newsmatch' ),
 			array( $this, 'field_l2_name' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[l2][name]',
+			)
 		);
 
 		// Level 2 Min (minimum dollar emount to qualify)
-		register_setting( $this->settings_group, self::$options_prefix . 'l2_min', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'l2_min',
+			$levels_option . '[l2][min]',
 			__( 'Level 2 min', 'newsmatch' ),
 			array( $this, 'field_l2_min' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[l2][min]',
+			)
 		);
 
 		// Level 2 Max (maximum dollar amount)
-		register_setting( $this->settings_group, self::$options_prefix . 'l2_max', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'l2_max',
+			$levels_option . '[l2][max]',
 			__( 'Level 2 max', 'newsmatch' ),
 			array( $this, 'field_l2_max' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[l2][max]',
+			)
 		);
 
 		// Level 3 Article (a/an/the)
-		register_setting( $this->settings_group, self::$options_prefix . 'l3_a', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'l3_a',
+			$levels_option . '[l3][a]',
 			__( 'Level 3 article', 'newsmatch' ),
 			array( $this, 'field_l3_a' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[l3][a]',
+			)
 		);
 
 		// Level 3 Name (supporter/donor/sustainer/etc)
-		register_setting( $this->settings_group, self::$options_prefix . 'l3_name', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'l3_name',
+			$levels_option . '[l3][name]',
 			__( 'Level 3 name', 'newsmatch' ),
 			array( $this, 'field_l3_name' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[l3][name]',
+			)
 		);
 
 		// Level 3 Min (minimum dollar emount to qualify)
-		register_setting( $this->settings_group, self::$options_prefix . 'l3_min', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'l3_min',
+			$levels_option . '[l3][min]',
 			__( 'Level 3 min', 'newsmatch' ),
 			array( $this, 'field_l3_min' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[l3][min]',
+			)
 		);
 
 		// Level 3 Max (maximum dollar amount)
-		register_setting( $this->settings_group, self::$options_prefix . 'l3_max', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'l3_max',
+			$levels_option . '[l3][max]',
 			__( 'Level 3 max', 'newsmatch' ),
 			array( $this, 'field_l3_max' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[l3][max]',
+			)
 		);
 
 		// Level 4 Article (a/an/the)
-		register_setting( $this->settings_group, self::$options_prefix . 'l4_a', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'l4_a',
+			$levels_option . '[l4][a]',
 			__( 'Level 4 article', 'newsmatch' ),
 			array( $this, 'field_l4_a' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[l4][a]',
+			)
 		);
 
 		// Level 4 Name (supporter/donor/sustainer/etc)
-		register_setting( $this->settings_group, self::$options_prefix . 'l4_name', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'l4_name',
+			$levels_option . '[l4][name]',
 			__( 'Level 4 name', 'newsmatch' ),
 			array( $this, 'field_l4_name' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[l4][name]',
+			)
 		);
 
 		// Level 4 Min (minimum dollar emount to qualify)
-		register_setting( $this->settings_group, self::$options_prefix . 'l4_min', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'l4_min',
+			$levels_option . '[l4][min]',
 			__( 'Level 4 min', 'newsmatch' ),
 			array( $this, 'field_l4_min' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[l4][min]',
+			)
 		);
 
 		// Level 4 Max (minimum dollar emount to qualify)
-		register_setting( $this->settings_group, self::$options_prefix . 'l4_max', 'sanitize_text_field' );
 		add_settings_field(
-			self::$options_prefix . 'l4_max',
+			$levels_option . '[l4][max]',
 			__( 'Level 4 max', 'newsmatch' ),
 			array( $this, 'field_l4_max' ),
 			$this->settings_page,
-			$this->donor_levels_section
+			$this->donor_levels_section,
+			array(
+				'id' => $levels_option . '[l4][max]',
+			)
 		);
 	}
 
@@ -464,17 +552,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_gd_a( $args ) {
-		$option = self::$options_prefix . 'gd_a';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['gd']['a'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'a, an, the: This is an article that refers to a donor.', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -486,17 +574,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_gd_name( $args ) {
-		$option = self::$options_prefix . 'gd_name';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['gd']['name'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'Supporter, Donor, Sustainer, etc.', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -508,17 +596,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l1_a( $args ) {
-		$option = self::$options_prefix . 'l1_a';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['l1']['a'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'a, an, the: This is an article that refers to a donor of this level.', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -530,17 +618,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l1_name( $args ) {
-		$option = self::$options_prefix . 'l1_name';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['l1']['name'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'i.e. Friend', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -552,17 +640,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l1_min( $args ) {
-		$option = self::$options_prefix . 'l1_min';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['l1']['min'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'minimum dollar amount to qualify for this level', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -574,17 +662,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l1_max( $args ) {
-		$option = self::$options_prefix . 'l1_max';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['l1']['max'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'maximum dollar amount for this level', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -596,17 +684,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l2_a( $args ) {
-		$option = self::$options_prefix . 'l2_a';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $option, $this->levels_default );
+		$value = $option_value['l2']['a'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'a, an, the: This is an article that refers to a donor of this level.', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -618,17 +706,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l2_name( $args ) {
-		$option = self::$options_prefix . 'l2_name';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['l2']['name'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'i.e. Ally', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -640,17 +728,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l2_min( $args ) {
-		$option = self::$options_prefix . 'l2_min';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['l2']['min'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'minimum dollar amount to qualify for this level', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -662,17 +750,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l2_max( $args ) {
-		$option = self::$options_prefix . 'l2_max';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['l2']['max'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'maximum dollar amount for this level', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -684,17 +772,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l3_a( $args ) {
-		$option = self::$options_prefix . 'l3_a';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['l3']['a'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'a, an, the: This is an article that refers to a donor of this level.', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -706,17 +794,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l3_name( $args ) {
-		$option = self::$options_prefix . 'l3_name';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['l3']['name'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'i.e. Champion', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -728,17 +816,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l3_min( $args ) {
-		$option = self::$options_prefix . 'l3_min';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['l3']['min'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'minimum dollar amount to qualify for this level', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -750,17 +838,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l3_max( $args ) {
-		$option = self::$options_prefix . 'l3_max';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['l3']['max'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'maximum dollar amount for this level', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -773,17 +861,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l4_a( $args ) {
-		$option = self::$options_prefix . 'l4_a';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['l4']['a'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'a, an, the: This is an article that refers to a donor of this level.', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -795,17 +883,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l4_name( $args ) {
-		$option = self::$options_prefix . 'l4_name';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['l4']['name'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'i.e. Ambassador', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -817,17 +905,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l4_min( $args ) {
-		$option = self::$options_prefix . 'l4_min';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['l4']['min'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'minimum dollar amount to qualify for this level', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 
@@ -839,17 +927,17 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l4_max( $args ) {
-		$option = self::$options_prefix . 'l4_max';
-		$value = get_option( $option, '' );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$value = $option_value['l4']['max'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
-			esc_attr( $option ),
+			esc_attr( $args['id'] ),
 			esc_attr( $value )
 		);
 		echo sprintf(
 			'<label for="%2$s"><i>%1$s</i></label>',
 			esc_html__( 'minimum dollar amount to qualify for this level', 'newsmatch' ),
-			esc_attr( $option )
+			esc_attr( $args['id'] )
 		);
 	}
 }
