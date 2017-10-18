@@ -114,6 +114,8 @@ function donationInit(form){
 			return false;
 		}
 
+		var org_id = form.attr('data-orgid');
+
 		var url = form.attr('action');
 		if (url.substr(url.length - 1) !== '/') {
 			url += '/';
@@ -127,11 +129,11 @@ function donationInit(form){
 		if ($frequency.val() === 'once') {
 			url
 				+= 'donateform'
-				+ '?org_id=newsmatch'
+				+ '?org_id=' + org_id
 				+ '&amount=' + amount.toFixed(2);
 		} else {
 			url += 'memberform'
-				+ '?org_id=newsmatch'
+				+ '?org_id=' + org_id
 				+ '&amount=' + amount.toFixed(2)
 				+ '&installmentPeriod=' + $frequency.val();
 		}
