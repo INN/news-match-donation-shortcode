@@ -46,7 +46,7 @@ This plugin comes with a default stylesheet, `assets/css/donation.css`, which is
 
 If you do not want this stylesheet enqueued on pages where the donation shortcode is displayed, hook a filter on `newsmatch_donate_plugin_css_enqueue` that returns `False`. Within your filter function, you may want to enqueue your own stylesheet.
 
-The structure of the buttons and `<select>`-based dropdown markup can be examined through your browser's inspector, or by [viewing the source code of the views](https://github.com/INN/newsmatch-donate-plugin/tree/master/views).
+The structure of the buttons and `<select>`-based dropdown markup can be examined through your browser's inspector, or by [viewing the source code of the views](https://github.com/INN/news-match-donation-shortcode/tree/master/views).
 
 If you wish to augment the plugin's existing styles, examine the `donation.css` file that comes with this plugin. You may want to:
 

@@ -1,13 +1,16 @@
 var $ = jQuery;
 
 jQuery(document).ready(function() {
-	
+
 	//donationController.init();
 
 	var forms = $('form.newsmatch-donation-form').each(function(){
 		var $form = $(this);
 		donationInit($form);
 	});
+
+	// if hitting the page via the browser back button, the correct input needs to be triggered
+	$('.donation-frequency.selected input').trigger('click');
 
 	$('.donation-frequency').keypress(function(e){
 	    if(e.keyCode === 0 || e.keyCode === 32 || e.keyCode === 13 ){
@@ -111,6 +114,8 @@ function donationInit(form){
 			return false;
 		}
 
+		var org_id = form.attr('data-orgid');
+
 		var url = form.attr('action');
 		if (url.substr(url.length - 1) !== '/') {
 			url += '/';
@@ -124,11 +129,11 @@ function donationInit(form){
 		if ($frequency.val() === 'once') {
 			url
 				+= 'donateform'
-				+ '?org_id=newsmatch'
+				+ '?org_id=' + org_id
 				+ '&amount=' + amount.toFixed(2);
 		} else {
 			url += 'memberform'
-				+ '?org_id=newsmatch'
+				+ '?org_id=' + org_id
 				+ '&amount=' + amount.toFixed(2)
 				+ '&installmentPeriod=' + $frequency.val();
 		}
@@ -157,83 +162,47 @@ function getDonationLevel(amount, frequency, type, form) {
 		return; // TODO: Handle error condition
 	}
 
-	var roundedAmount = +(parseFloat(amount).toFixed(2));
-	console.log("getDonationLevel::roundedAmount = ", roundedAmount);
-	var level = '';
-	var supporter = false;
-	if (type == 'business') {
-		if ( frequency === 'monthly' ) {
-			// detemine level and update text based on monthly frequency
-			if ( roundedAmount > 0 && roundedAmount <= 20.83 ) {
+	var roundedAmount = +(parseFloat(amount).toFixed(2)),
+		supporter = false,
+		level = '',
+		levels = [],
+		l1 = [donor_levels.l1_a, donor_levels.l1_name, donor_levels.l1_min, donor_levels.l1_max],
+		l2 = [donor_levels.l2_a, donor_levels.l2_name, donor_levels.l2_min, donor_levels.l2_max],
+		l3 = [donor_levels.l3_a, donor_levels.l3_name, donor_levels.l3_min, donor_levels.l3_max],
+		l4 = [donor_levels.l4_a, donor_levels.l4_name, donor_levels.l4_min, donor_levels.l4_max];
+
+	if (l1[1].length > 0) {levels.push(l1)};
+	if (l2[1].length > 0) {levels.push(l2)};
+	if (l3[1].length > 0) {levels.push(l3)};
+	if (l4[1].length > 0) {levels.push(l4)};
+
+	var ll = levels.length;
+
+	if (frequency === 'monthly') {
+
+		for (var i=0; i<ll; i++) {
+			if (roundedAmount > 0 && roundedAmount < donor_levels.l1_min/12 ) {
 				supporter = true;
-				level = 'a <strong>Supporting Non-member</strong>';
-			} else if ( roundedAmount > 20.83 && roundedAmount <= 83.33 ) {
-				level = 'a <strong>Community Partner</strong>';
-			} else if ( roundedAmount > 83.33 ) {
-				level = 'a <strong>Leadership Circle</strong>';
-			}
-		} else {
-			// detemine level and update text based on yearly frequency
-			if ( roundedAmount < 250 ) {
-				supporter = true;
-				level = 'a <strong>Supporting Non-member</strong>';
-			} else if ( roundedAmount >= 250 && roundedAmount < 1000 ) {
-				level = 'a <strong>Community Partner</strong>';
-			} else if ( roundedAmount >= 1000 ) {
-				level = 'a <strong>Leadership Circle</strong>';
-			}
-		}
-	} else if (type == 'nonprofit') {
-		if ( frequency === 'monthly' ) {
-			// detemine level and update text based on monthly frequency
-			if ( roundedAmount > 0 && roundedAmount <= 10.416 ) {
-				supporter = true;
-				level = 'a <strong>Supporting Non-member</strong>';
-			} else if ( roundedAmount > 10.416 && roundedAmount <= 41.66 ) {
-				level = 'a <strong>Community Partner</strong>';
-			} else if ( roundedAmount > 41.66 ) {
-				level = 'a <strong>Leadership Circle</strong>';
-			}
-		} else {
-			// detemine level and update text based on yearly frequency
-			if ( roundedAmount < 125 ) {
-				supporter = true;
-				level = 'a <strong>Supporting Non-member</strong>';
-			} else if ( roundedAmount >= 125 && roundedAmount < 500 ) {
-				level = 'a <strong>Community Partner</strong>';
-			} else if ( roundedAmount >= 500 ) {
-				level = 'a <strong>Leadership Circle</strong>';
+				level = donor_levels.gd_a + ' <strong>' + donor_levels.gd_name + '</strong>';		
+			} else if (roundedAmount >= levels[i][2]/12 && roundedAmount < levels[i][3]/12) {
+				level = levels[i][0] + ' <strong>' + levels[i][1] + '</strong>';
 			}
 		}
+		if (roundedAmount > levels[ll-1][2]/12) {
+			level = levels[ll-1][0] + ' <strong>' + levels[ll-1][1] + '</strong>';	
+		}
+
 	} else {
-		if (frequency === 'monthly') {
-			// detemine level and update text based on monthly frequency
-			if (roundedAmount > 0 && roundedAmount <= 2.083 ) {
+		for (var i=0; i<ll; i++) {
+			if (roundedAmount > 0 && roundedAmount < donor_levels.l1_min ) {
 				supporter = true;
-				level = 'a <strong>Supporting Non-member</strong>';
-			} else if (roundedAmount > 2.083 && roundedAmount <= 8.34) {
-				level = 'an <strong>Ally</strong>';
-			} else if (roundedAmount > 8.34 && roundedAmount <= 20.83) {
-				level = 'an <strong>Enthusiast</strong>';
-			} else if (roundedAmount > 20.83 && roundedAmount <= 83.34) {
-				level = 'an <strong>Advocate</strong>';
-			} else if (roundedAmount > 83.34) {
-				level = 'an <strong>Ambassador</strong>';
-			}
-		} else {
-			// detemine level and update text based on yearly frequency
-			if (roundedAmount < 25) {
-				supporter = true;
-				level = 'a <strong>Supporting Non-member</strong>';
-			} else if (roundedAmount >= 25 && roundedAmount < 100) {
-				level = 'an <strong>Ally</strong>';
-			} else if (roundedAmount >= 100 && roundedAmount < 250) {
-				level = 'an <strong>Enthusiast</strong>';
-			} else if (roundedAmount >= 250 && roundedAmount < 1000) {
-				level = 'an <strong>Advocate</strong>';
-			} else if (roundedAmount >= 1000) {
-				level = 'an <strong>Ambassador</strong>';
-			}
+				level = donor_levels.gd_a + ' <strong>' + donor_levels.gd_name + '</strong>';		
+			} else if (roundedAmount >= levels[i][2] && roundedAmount < levels[i][3]) {
+				level = levels[i][0] + ' <strong>' + levels[i][1] + '</strong>';
+			} 
+		}
+		if (roundedAmount > levels[ll-1][2]) {
+			level = levels[ll-1][0] + ' <strong>' + levels[ll-1][1] + '</strong>';	
 		}
 	}
 
@@ -241,7 +210,7 @@ function getDonationLevel(amount, frequency, type, form) {
 	if (supporter){
 		message = 'This gift will make you ' + level + '.';
 	} else {
-		message = 'This gift will make you ' + level + ' member.';
+		message = 'This gift will make you ' + level + '.';
 	}
 	return message;
 }

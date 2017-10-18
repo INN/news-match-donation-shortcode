@@ -73,9 +73,9 @@ class NewsMatchDonation_Shortcode {
 		}
 
 		if ( isset( $atts['type'] ) && 'select' === $atts['type'] ) {
-			return $this->render_view( '/views/rr-donation-form-select.view.php', $atts );
+			return $this->render_view( '/views/donation-form-select.view.php', $atts );
 		} else {
-			return $this->render_view( '/views/rr-donation-form-buttons.view.php', $atts );
+			return $this->render_view( '/views/donation-form-buttons.view.php', $atts );
 		}
 	}
 
@@ -129,6 +129,31 @@ class NewsMatchDonation_Shortcode {
 			),
 			$atts
 		);
+
+		$levels_option = get_option( $this->option_prefix . 'levels_', NewsMatchDonation_Settings::$levels_default );
+		$donor_levels = array(
+			'gd_a'    => esc_attr( $levels_option['gd']['a'] ),
+			'gd_name' => esc_attr( $levels_option['gd']['name'] ),
+			'l1_a'    => esc_attr( $levels_option['l1']['a'] ),
+			'l1_name' => esc_attr( $levels_option['l1']['name'] ),
+			'l1_min'  => esc_attr( $levels_option['l1']['min'] ),
+			'l1_max'  => esc_attr( $levels_option['l1']['max'] ),
+			'l2_a'    => esc_attr( $levels_option['l2']['a'] ),
+			'l2_name' => esc_attr( $levels_option['l2']['name'] ),
+			'l2_min'  => esc_attr( $levels_option['l2']['min'] ),
+			'l2_max'  => esc_attr( $levels_option['l2']['max'] ),
+			'l3_a'    => esc_attr( $levels_option['l3']['a'] ),
+			'l3_name' => esc_attr( $levels_option['l3']['name'] ),
+			'l3_min'  => esc_attr( $levels_option['l3']['min'] ),
+			'l3_max'  => esc_attr( $levels_option['l3']['max'] ),
+			'l4_a'    => esc_attr( $levels_option['l4']['a'] ),
+			'l4_name' => esc_attr( $levels_option['l4']['name'] ),
+			'l4_min'  => esc_attr( $levels_option['l4']['min'] ),
+			'l4_max'  => esc_attr( $levels_option['l4']['max'] ),
+		);
+
+
+		echo '<script type="text/javascript">var donor_levels = ' . json_encode( $donor_levels ) . '</script>';
 
 		// Make sure that this is a valid value.
 		if ( ! in_array( $view_data['level'], array( 'individual', 'nonprofit', 'business' ), true ) ) {
