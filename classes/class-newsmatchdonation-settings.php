@@ -40,6 +40,8 @@ class NewsMatchDonation_Settings {
 	/**
 	 * The prefix used for the levels option
 	 *
+	 * This is set in __construct()
+	 *
 	 * @var string $levels_option The wp_option in the options table that contains the field levels.
 	 */
 	public $levels_option = '';
@@ -56,7 +58,7 @@ class NewsMatchDonation_Settings {
 		),
 		'l1' => array(
 			'a' => 'a',
-			'name' => 'Supporter',
+			'name' => 'Friend',
 			'min' => 0,
 			'max' => 5,
 		),
@@ -78,7 +80,6 @@ class NewsMatchDonation_Settings {
 			'min' => 500,
 			'max' => 5000,
 		),
-
 	);
 
 	/**
@@ -87,6 +88,8 @@ class NewsMatchDonation_Settings {
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'register_submenu_page' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
+
+		// if you change this you will make the saved settings for every plugin user inaccessible and reset them to the defaults.
 		$this->levels_option = self::$options_prefix . 'levels_';
 	}
 
@@ -195,6 +198,9 @@ class NewsMatchDonation_Settings {
 		/*
 		 * Donor Levels Section
 		 */
+		// let's just make levels option prefix simple and easy to remember:
+		$levels_option = $this->levels_option;
+
 		add_settings_section(
 			$this->donor_levels_section,
 			esc_html__( 'Donor Levels Settings', 'newsmatch' ),
@@ -202,10 +208,14 @@ class NewsMatchDonation_Settings {
 			$this->settings_page
 		);
 
-		register_setting( $this->settings_group, self::$options_prefix . 'levels', 'sanitize_text_field' );
-
-		// let's just make levels option prefix simple and easy to remember:
-		$levels_option = $this->levels_option;
+		register_setting(
+			$this->settings_group,
+			$levels_option,
+			array(
+				'sanitize_callback' => array( $this, 'levels_option_save' ),
+				'default' => $this->levels_default,
+			)
+		);
 
 		// Generic Donor Article (a/an/the)
 		add_settings_field(
@@ -923,6 +933,8 @@ class NewsMatchDonation_Settings {
 	 * Output the input field for the level 4 max
 	 *
 	 * This is part of the donation form URL
+
+	 // make sure that the value is one that we would want to preserve, and that it is sanitized
 	 *
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
@@ -939,5 +951,47 @@ class NewsMatchDonation_Settings {
 			esc_html__( 'minimum dollar amount to qualify for this level', 'newsmatch' ),
 			esc_attr( $args['id'] )
 		);
+	}
+
+	/**
+	 * Clean and save the levels options
+	 *
+	 * @since 0.1
+	 * @param array the submitted option value for the levels settings.
+	 */
+	public function levels_option_save( $submission = array() ) {
+		// This is where we will store the post-sanitization options
+		$proposed = array();
+
+		if ( is_array( $submission ) ) {
+			foreach ( $submission as $entry_key => $values ) {
+				$sanitized_entry = sanitize_key( $entry_key );
+
+				// make sure that the option is a name that we want to preserve
+				if ( ! empty( $sanitized_entry ) && in_array( $sanitized_entry, array( 'gd', 'l1', 'l2', 'l3', 'l4' ) ) ) {
+					$proposed[ $sanitized_entry ] = array();
+
+					// sanitize all the option values
+					foreach ( $values as $key => $value ) {
+						$sanitized_key = sanitize_key( $key );
+						$sanitized_value = sanitize_text_field( $value );
+
+						// make sure that the value is one that we would want to preserve, and that it is sanitized
+						if (
+							! empty( $sanitized_key )
+							&& in_array( $sanitized_key, array( 'a', 'name', 'min', 'max' ) )
+							&& ! empty( $sanitized_value )
+						) {
+							$proposed[ $sanitized_entry ][ $sanitized_key ] = $sanitized_value;
+						}
+					}
+				}
+			}
+		}
+		error_log(var_export( $proposed, true));
+
+		$cleaned = wp_parse_args( $proposed, $this->levels_default );
+
+		return $cleaned;
 	}
 }
