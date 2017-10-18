@@ -694,7 +694,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l2_a( $args ) {
-		$option_value = get_option( $option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this->levels_default );
 		$value = $option_value['l2']['a'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
