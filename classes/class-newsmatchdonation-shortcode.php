@@ -129,30 +129,31 @@ class NewsMatchDonation_Shortcode {
 			),
 			$atts
 		);
+
+		$levels_option = get_option( $this->option_prefix . 'levels_', NewsMatchDonation_Settings::$levels_default );
 		$donor_levels = array(
-			'gd_a' => esc_attr( get_option( $this->option_prefix . 'gd_a', '' ) ),
-			'gd_name' => esc_attr( get_option( $this->option_prefix . 'gd_name', '' ) ),
-			'l1_a' => esc_attr( get_option( $this->option_prefix . 'l1_a', '' ) ),
-			'l1_name' => esc_attr( get_option( $this->option_prefix . 'l1_name', '' ) ),
-			'l1_min' => esc_attr( get_option( $this->option_prefix . 'l1_min', '' ) ),
-			'l1_max' => esc_attr( get_option( $this->option_prefix . 'l1_max', '' ) ),
-			'l2_a' => esc_attr( get_option( $this->option_prefix . 'l2_a', '' ) ),
-			'l2_name' => esc_attr( get_option( $this->option_prefix . 'l2_name', '' ) ),
-			'l2_min' => esc_attr( get_option( $this->option_prefix . 'l2_min', '' ) ),
-			'l2_max' => esc_attr( get_option( $this->option_prefix . 'l2_max', '' ) ),
-			'l3_a' => esc_attr( get_option( $this->option_prefix . 'l3_a', '' ) ),
-			'l3_name' => esc_attr( get_option( $this->option_prefix . 'l3_name', '' ) ),
-			'l3_min' => esc_attr( get_option( $this->option_prefix . 'l3_min', '' ) ),
-			'l3_max' => esc_attr( get_option( $this->option_prefix . 'l3_max', '' ) ),
-			'l4_a' => esc_attr( get_option( $this->option_prefix . 'l4_a', '' ) ),
-			'l4_name' => esc_attr( get_option( $this->option_prefix . 'l4_name', '' ) ),
-			'l4_min' => esc_attr( get_option( $this->option_prefix . 'l4_min', '' ) ),
-			'l4_max' => esc_attr( get_option( $this->option_prefix . 'l4_max', '' ) ),
+			'gd_a'    => esc_attr( $levels_option['gd']['a'] ),
+			'gd_name' => esc_attr( $levels_option['gd']['name'] ),
+			'l1_a'    => esc_attr( $levels_option['l1']['a'] ),
+			'l1_name' => esc_attr( $levels_option['l1']['name'] ),
+			'l1_min'  => esc_attr( $levels_option['l1']['min'] ),
+			'l1_max'  => esc_attr( $levels_option['l1']['max'] ),
+			'l2_a'    => esc_attr( $levels_option['l2']['a'] ),
+			'l2_name' => esc_attr( $levels_option['l2']['name'] ),
+			'l2_min'  => esc_attr( $levels_option['l2']['min'] ),
+			'l2_max'  => esc_attr( $levels_option['l2']['max'] ),
+			'l3_a'    => esc_attr( $levels_option['l3']['a'] ),
+			'l3_name' => esc_attr( $levels_option['l3']['name'] ),
+			'l3_min'  => esc_attr( $levels_option['l3']['min'] ),
+			'l3_max'  => esc_attr( $levels_option['l3']['max'] ),
+			'l4_a'    => esc_attr( $levels_option['l4']['a'] ),
+			'l4_name' => esc_attr( $levels_option['l4']['name'] ),
+			'l4_min'  => esc_attr( $levels_option['l4']['min'] ),
+			'l4_max'  => esc_attr( $levels_option['l4']['max'] ),
 		);
 
 
 		echo '<script type="text/javascript">var donor_levels = ' . json_encode( $donor_levels ) . '</script>';
-		//echo '<script type="text/javascript">var my_json_object = ' . 'test' . '</script>';
 
 		// Make sure that this is a valid value.
 		if ( ! in_array( $view_data['level'], array( 'individual', 'nonprofit', 'business' ), true ) ) {

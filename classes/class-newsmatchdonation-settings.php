@@ -51,7 +51,7 @@ class NewsMatchDonation_Settings {
 	 *
 	 * @var array
 	 */
-	public $levels_default = array(
+	public static $levels_default = array(
 		'gd' => array(
 			'a' => 'a',
 			'name' => 'Donor',
@@ -90,6 +90,7 @@ class NewsMatchDonation_Settings {
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 
 		// if you change this you will make the saved settings for every plugin user inaccessible and reset them to the defaults.
+		// please also change it in News_Match_Donation_Shortcode->render_view()
 		$this->levels_option = self::$options_prefix . 'levels_';
 	}
 
@@ -213,7 +214,7 @@ class NewsMatchDonation_Settings {
 			$levels_option,
 			array(
 				'sanitize_callback' => array( $this, 'levels_option_save' ),
-				'default' => $this->levels_default,
+				'default' => $this::$levels_default,
 			)
 		);
 
@@ -562,7 +563,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_gd_a( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['gd']['a'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -584,7 +585,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_gd_name( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['gd']['name'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -606,7 +607,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l1_a( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['l1']['a'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -628,7 +629,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l1_name( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['l1']['name'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -650,7 +651,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l1_min( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['l1']['min'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -672,7 +673,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l1_max( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['l1']['max'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -694,7 +695,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l2_a( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['l2']['a'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -716,7 +717,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l2_name( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['l2']['name'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -738,7 +739,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l2_min( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['l2']['min'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -760,7 +761,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l2_max( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['l2']['max'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -782,7 +783,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l3_a( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['l3']['a'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -804,7 +805,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l3_name( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['l3']['name'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -826,7 +827,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l3_min( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['l3']['min'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -848,7 +849,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l3_max( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['l3']['max'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -871,7 +872,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l4_a( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['l4']['a'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -893,7 +894,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l4_name( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['l4']['name'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -915,7 +916,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l4_min( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['l4']['min'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -939,7 +940,7 @@ class NewsMatchDonation_Settings {
 	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
 	 */
 	public function field_l4_max( $args ) {
-		$option_value = get_option( $this->levels_option, $this->levels_default );
+		$option_value = get_option( $this->levels_option, $this::$levels_default );
 		$value = $option_value['l4']['max'];
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
@@ -988,9 +989,8 @@ class NewsMatchDonation_Settings {
 				}
 			}
 		}
-		error_log(var_export( $proposed, true));
 
-		$cleaned = wp_parse_args( $proposed, $this->levels_default );
+		$cleaned = wp_parse_args( $proposed, $this::$levels_default );
 
 		return $cleaned;
 	}

@@ -1,7 +1,7 @@
 var $ = jQuery;
 
 jQuery(document).ready(function() {
-	
+
 	//donationController.init();
 
 	var forms = $('form.newsmatch-donation-form').each(function(){
