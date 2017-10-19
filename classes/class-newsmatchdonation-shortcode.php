@@ -124,7 +124,7 @@ class NewsMatchDonation_Shortcode {
 				'url' => $this->get_url(),
 				'org_id' => esc_attr( get_option( $this->option_prefix . 'org_id', '' ) ),
 				'sf_campaign_id' => esc_attr( get_option( $this->option_prefix . 'sf_campaign_id', '' ) ),
-				'amount' => '15',
+				'amount' => esc_attr( get_option( $this->option_prefix . 'default_donation', 15 ) ),
 				'level' => 'individual',
 			),
 			$atts

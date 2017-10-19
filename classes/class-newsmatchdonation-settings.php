@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * The class for the News Match Donation plugin's setting
  *
  * @package NewsMatchDonation\Settings
@@ -36,7 +36,7 @@ class NewsMatchDonation_Settings {
 	 * @var string $options_prefix The prefix for this plugin's options saved in the options table
 	 */
 	public static $options_prefix = 'nmds_';
-	
+
 	/**
 	 * The prefix used for the levels option
 	 *
@@ -90,7 +90,7 @@ class NewsMatchDonation_Settings {
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 
 		// if you change this you will make the saved settings for every plugin user inaccessible and reset them to the defaults.
-		// please also change it in News_Match_Donation_Shortcode->render_view()
+		// please also change it in News_Match_Donation_Shortcode->render_view().
 		$this->levels_option = self::$options_prefix . 'levels_';
 	}
 
@@ -156,6 +156,15 @@ class NewsMatchDonation_Settings {
 			self::$options_prefix . 'org_id',
 			__( 'Organization ID', 'newsmatch' ),
 			array( $this, 'field_org_id' ),
+			$this->settings_page,
+			$this->settings_section
+		);
+
+		register_setting( $this->settings_group, self::$options_prefix . 'default_donation', array( $this, 'sanitize_money_field' ) );
+		add_settings_field(
+			self::$options_prefix . 'default_donation',
+			__( 'Default donation amount', 'newsmatch' ),
+			array( $this, 'field_default_donation' ),
 			$this->settings_page,
 			$this->settings_section
 		);
@@ -476,6 +485,23 @@ class NewsMatchDonation_Settings {
 		$value = get_option( $option, '' );
 		echo sprintf(
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
+			esc_attr( $option ),
+			esc_attr( $value )
+		);
+	}
+
+	/**
+	 * Output the input field for the organization's default_donation
+	 *
+	 * This is part of the donation form URL
+	 *
+	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
+	 */
+	public function field_default_donation( $args ) {
+		$option = self::$options_prefix . 'default_donation';
+		$value = get_option( $option, '15.00' );
+		echo sprintf(
+			'$<input name="%1$s" id="%1$s" type="number" min="0.01" step="0.01" value="%2$s">',
 			esc_attr( $option ),
 			esc_attr( $value )
 		);
@@ -958,29 +984,30 @@ class NewsMatchDonation_Settings {
 	 * Clean and save the levels options
 	 *
 	 * @since 0.1
-	 * @param array the submitted option value for the levels settings.
+	 * @param array $submission the submitted option value for the levels settings.
+	 * @return The sanitized submission, or the default values, whichever is safer.
 	 */
 	public function levels_option_save( $submission = array() ) {
-		// This is where we will store the post-sanitization options
+		// This is where we will store the post-sanitization options.
 		$proposed = array();
 
 		if ( is_array( $submission ) ) {
 			foreach ( $submission as $entry_key => $values ) {
 				$sanitized_entry = sanitize_key( $entry_key );
 
-				// make sure that the option is a name that we want to preserve
-				if ( ! empty( $sanitized_entry ) && in_array( $sanitized_entry, array( 'gd', 'l1', 'l2', 'l3', 'l4' ) ) ) {
+				// make sure that the option is a name that we want to preserve, and sanitize it, for it is an array key.
+				if ( ! empty( $sanitized_entry ) && in_array( $sanitized_entry, array( 'gd', 'l1', 'l2', 'l3', 'l4' ), true ) ) {
 					$proposed[ $sanitized_entry ] = array();
 
-					// sanitize all the option values
+					// sanitize all the option values!
 					foreach ( $values as $key => $value ) {
 						$sanitized_key = sanitize_key( $key );
 						$sanitized_value = sanitize_text_field( $value );
 
-						// make sure that the value is one that we would want to preserve, and that it is sanitized
+						// make sure that the value is one that we would want to preserve, and that it is sanitized.
 						if (
 							! empty( $sanitized_key )
-							&& in_array( $sanitized_key, array( 'a', 'name', 'min', 'max' ) )
+							&& in_array( $sanitized_key, array( 'a', 'name', 'min', 'max' ), true )
 							&& ! empty( $sanitized_value )
 						) {
 							$proposed[ $sanitized_entry ][ $sanitized_key ] = $sanitized_value;
@@ -993,5 +1020,28 @@ class NewsMatchDonation_Settings {
 		$cleaned = wp_parse_args( $proposed, $this::$levels_default );
 
 		return $cleaned;
+	}
+
+	/**
+	 * Sanitize money input
+	 *
+	 * @since 0.1.1
+	 * @param string $amount The saved amount
+	 * @return float The safe saved amount: >= 0.01
+	 */
+	public function sanitize_money_input( $amount ) {
+		$return = 0.01;
+
+		// default donation amount must be greater than 0.
+		if ( is_numeric( $amount ) ) {
+			$round = round( (float) $amount, 2 );
+			if ( 0.01 <= $round ) {
+				$return = $round;
+			} elseif ( 0.01 <= ( -1 * $round ) ) {
+				$return = -1 * $round;
+			}
+		}
+		// if the amount was 0 < abs(x) < 0.01, well, it's 0.01 now.
+		return $return;
 	}
 }
