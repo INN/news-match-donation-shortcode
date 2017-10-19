@@ -137,7 +137,7 @@ class NewsMatchDonation_Settings {
 	public function register_settings() {
 		add_settings_section(
 			$this->settings_section,
-			esc_html__( 'News Match Shortcode Settings', 'newsmatch' ),
+			esc_html__( 'General donation settings', 'newsmatch' ),
 			array( $this, 'settings_section_callback' ),
 			$this->settings_page
 		);
@@ -448,7 +448,7 @@ class NewsMatchDonation_Settings {
 	 * Settings section description
 	 */
 	public function settings_section_callback() {
-		echo '';
+		echo wp_kses_post( __( 'For more information about these settings, and about the plugin, please see the <a href="https://wordpress.org/plugins/news-match-donation-shortcode">plugin page on WordPress.org</a>.', 'newsmatch' ) );
 	}
 
 	/**
