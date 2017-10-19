@@ -7,13 +7,16 @@ Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Short description.
+This plugin implements a shortcode allowing participating sites to better collect donations through the Knight Foundation News Match program and the News Revenue Hub.
 
 == Description ==
 
-This plugin implements a shortcode allowing participating sites to better collect donations through the [Knight Foundation News Match](https://www.knightfoundation.org/articles/announcing-news-match-2017-2-million-fund-will-match-donations-to-nonprofit-newsrooms) program.
+This plugin implements a shortcode allowing participating sites to better collect donations through the [Knight Foundation News Match](https://www.knightfoundation.org/articles/announcing-news-match-2017-2-million-fund-will-match-donations-to-nonprofit-newsrooms) program and the [News Revenue Hub](https://fundjournalism.org/).
 
-Example usage:
+The plugin's settings can be found in the WordPress Dashboard, under the "Plugins" menu entry, at "News Match Shortcode". These settings allow you to configure your organization's name, your organization's News Match ID, the default donation amount, the live and testing donation form URLs, which donation form to use, and the Salesforce caomaign ID associated with this form. The settings page also allows you to configure four donation levels, with minimum and maximum donation amounts and custom names for the donation level tiers. Configure the donation levels to match your organization's existing membership programs.
+
+Donations can occur one or reoccur on a monthly or yearly basis. The donation shortcode comes in two forms: one with buttons to choose the donation frequency and one with a drop-down. The default usage of the shortcode uses buttons:
+
 Add donation form with no Salesforce campaign id and no default donation amount specified:
 `[newsmatch_donation_form]`
 
@@ -39,6 +42,14 @@ You may also desire to use a drop-down instead of buttons; to do that add `type=
 ```
 
 == Frequently Asked Questions ==
+
+= Who provides support for this plugin? =
+
+If you have questions about this plugin and integrating it with your WordPress site, contact support@inn.org.
+
+If you have questions about the News Revenue Hub, visit [their contact page](https://fundjournalism.org/contact/).
+
+If you have questions about the News Match program, visit their website for [donor](https://www.newsmatch.org/info/donors), [nonprofit](https://www.newsmatch.org/info/nonprofits) and [funding partner](https://www.newsmatch.org/info/funders) information.
 
 = How do I change the looks of this form? =
 
