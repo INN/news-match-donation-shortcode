@@ -1,5 +1,5 @@
 <div>
-	<form class="newsmatch-donation-form form-inline type-select level-<?php echo esc_attr( $data['level'] ); ?>" action="<?php echo esc_attr( esc_url( $data['url'] ) ); ?>" method="POST">
+	<form class="newsmatch-donation-form form-inline type-select level-<?php echo esc_attr( $data['level'] ); ?>" action="<?php echo esc_attr( esc_url( $data['url'] ) ); ?>" method="POST" data-orgid="<?php echo esc_attr( $data['org_id'] ); ?>">
 		<div class="newsmatch-donate-label">I would like to donate:</div>
 		<div class="form-group col-md-5 col-sm-5">
 			<label class="newsmatch-donation-amount-label" for="newsmatch-donation-amount">I would like to donate:</label>
