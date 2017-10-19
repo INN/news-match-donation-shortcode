@@ -40,6 +40,9 @@ function donationInit(form){
 		$frequency_checked = form.find('select[name="frequency"]');
 	} else {
 		$frequency_checked = form.find('input[name="frequency"]:checked');
+		if ( 0 <= $frequency_checked.length ) {
+			$frequency_checked = form.find('.selected input[name="frequency"]');
+		}
 	}
 
 	var frequency = $frequency_checked.val();
@@ -111,6 +114,9 @@ function donationInit(form){
 			$frequency = form.find('select[name="frequency"]');
 		} else {
 			$frequency = form.find('input[name="frequency"]:checked');
+			if ( 0 <= $frequency.length ) {
+				$frequency = form.find('.selected input[name="frequency"]');
+			}
 		}
 		var $campaign = form.find('.newsmatch-sf-campaign-id');
 
