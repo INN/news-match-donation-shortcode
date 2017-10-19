@@ -73,4 +73,8 @@ If you want to run your own donation server, it should accept queries in these f
 
 It should have live and staging URLs.
 
+= Must my organization use this plugin if we are a News Match member? =
+
+No, but we do recommend it as a way of simplifying your News Match donation pipeline.
+
 == Changelog ==
