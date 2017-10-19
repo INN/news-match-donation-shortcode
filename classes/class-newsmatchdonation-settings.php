@@ -99,7 +99,7 @@ class NewsMatchDonation_Settings {
 	 */
 	public function register_submenu_page() {
 		add_submenu_page(
-			'plugins.php',
+			'options-general.php',
 			esc_html__( 'News Match Donation Shortcode', 'newsmatch' ),
 			esc_html__( 'News Match Shortcode', 'newsmatch' ),
 			'manage_options', // permissions level is this because that seems right for site-wide config options.
