@@ -2,7 +2,7 @@
 /*
 Plugin Name: News Match Donation Shortcode
 Description:  Provides methods to integrate with the donation application hosted at checkout.voiceofsandiego.org
-Version: 0.1
+Version: 0.1.1
 Author: inn_nerds
 Author URI: https://labs.inn.org/
 */
