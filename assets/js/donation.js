@@ -41,6 +41,7 @@ function donationInit(form){
 	} else {
 		$frequency_checked = form.find('input[name="frequency"]:checked');
 	}
+
 	var frequency = $frequency_checked.val();
 	var donation_level = getDonationLevel(amount, frequency, level, form);
 	var $message = form.find('.donation-level-message');
@@ -57,6 +58,9 @@ function donationInit(form){
 			$frequency = form.find('select[name="frequency"]').val();
 		} else {
 			$frequency = form.find('input[name="frequency"]:checked').val();
+			if ( undefined === $frequency ) {
+				$frequency = form.find('.selected input[name="frequency"]').val();
+			}
 		}
 		$message.html(getDonationLevel(
 			$input.val(),
@@ -144,10 +148,7 @@ function donationInit(form){
 
 		window.location.assign(encodeURI(url));
 	});
-
 }
-	
-	
 
 /**
  * Determine the correct donation level message based on the dollar amount and the frequency of
