@@ -17,6 +17,13 @@ define( 'NMD_PLUGIN_FILE', __FILE__ );
  */
 class NewsMatchDonation {
 	/**
+	 * Plugin version number
+	 *
+	 * @since 0.1.1
+	 */
+	const VERSION = '0.1.1';
+
+	/**
 	 * Set up the plugin
 	 */
 	public function __construct() {

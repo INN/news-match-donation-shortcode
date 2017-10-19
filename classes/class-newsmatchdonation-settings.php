@@ -206,6 +206,14 @@ class NewsMatchDonation_Settings {
 		);
 
 		/*
+		 * Catchall settings save
+		 *
+		 * @link https://github.com/INN/news-match-donation-shortcode/issues/11
+		 * @since 0.1.1
+		 */
+		register_setting( $this->settings_group, self::$options_prefix, 'sanitize_catchall_save' );
+
+		/*
 		 * Donor Levels Section
 		 */
 		// let's just make levels option prefix simple and easy to remember:
@@ -1043,5 +1051,24 @@ class NewsMatchDonation_Settings {
 		}
 		// if the amount was 0 < abs(x) < 0.01, well, it's 0.01 now.
 		return $return;
+	}
+
+	/**
+	 * Sanitize the save option for the general catchall option
+	 *
+	 * @param array $submission the submitted option value for the levels settings.
+	 * @return The sanitized submission, or the default values, whichever is safer.
+	 */
+	public function sanitize_catchall_save( $submission ) {
+		$proposed = array(
+			'version' => NewsMatchDonation::VERSION;
+		);
+
+		// eventually, fill this with default options, a la the levels_default option.
+		$defaults = array(
+		);
+
+		$cleaned = array_merge( $proposed, $defaults );
+		return $cleaned;
 	}
 }
