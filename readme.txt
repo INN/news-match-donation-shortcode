@@ -40,11 +40,11 @@ You may also desire to use a drop-down instead of buttons; to do that add `type=
 
 == Frequently Asked Questions ==
 
-== Styling ==
+= How do I change the looks of this form? =
 
-This plugin comes with a default stylesheet, `assets/css/donation.css`, which is output on pages that have the shortcode. 
+This plugin comes with a default stylesheet, `assets/css/donation.css`, which is output on pages that have the shortcode.
 
-If you do not want this stylesheet enqueued on pages where the donation shortcode is displayed, hook a filter on `newsmatch_donate_plugin_css_enqueue` that returns `False`. Within your filter function, you may want to enqueue your own stylesheet.
+If you do not want this stylesheet enqueued on pages where the donation shortcode is displayed, hook a filter on `newsmatch_donate_plugin_css_enqueue` that returns `False`. Within your filter function, you may want to enqueue your own stylesheet. Alternately, just put the styles in your theme's stylesheet.
 
 The structure of the buttons and `<select>`-based dropdown markup can be examined through your browser's inspector, or by [viewing the source code of the views](https://github.com/INN/news-match-donation-shortcode/tree/master/views).
 
@@ -61,5 +61,16 @@ If you wish to augment the plugin's existing styles, examine the `donation.css` 
 	- `label.donation-frequency.selected` for the active donation button
 	- `.newsmatch-donation-form button[type="submit"]` for the submit button
 	- `.newsmatch-donation-form button[type="submit"]:hover` for the hovered submit button
+
+= Must I be a News Match program participant to use this plugin? =
+
+Technically, no. Practically speaking, yes.
+
+If you want to run your own donation server, it should accept queries in these forms:
+
+- Setting up a recurring donation: `http://live.example.org/memberform?org_id=organizatino&amount=25.00&installmentPeriod=<yearly|monthly>&campaign=<salesforce campaign ID>`
+- Single donation: `http://live.example.org/donateform?org_id=organization&amount=50.00`
+
+It should have live and staging URLs.
 
 == Changelog ==
