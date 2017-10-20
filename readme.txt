@@ -47,13 +47,13 @@ Add a donation form with a Salesforce campaign id of `foo` and do not specify a 
 
 You may wish to use a drop-down instead of buttons; to do that add `type="select"` to the shortcode:
 
-```[newsmatch_donation_form type="select"]
+`[newsmatch_donation_form type="select"]`
 
-[newsmatch_donation_form amount="50" type="select"]
+`[newsmatch_donation_form amount="50" type="select"]`
 
-[newsmatch_donation_form sf_campaign_id="foo" amount="25" type="select"]
+`[newsmatch_donation_form sf_campaign_id="foo" amount="25" type="select"]`
 
-[newsmatch_donation_form sf_campaign_id="foo" type="select"]```
+`[newsmatch_donation_form sf_campaign_id="foo" type="select"]`
 
 == Frequently Asked Questions ==
 
