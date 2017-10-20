@@ -7,11 +7,13 @@ Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin implements a shortcode allowing participating sites to better collect donations through the Knight Foundation News Match program and the News Revenue Hub.
+This plugin implements a shortcode that allows News Revenue Hub clients to collect donations.
 
 == Description ==
 
-This plugin implements a shortcode allowing participating sites to better collect donations through the [Knight Foundation News Match](https://www.knightfoundation.org/articles/announcing-news-match-2017-2-million-fund-will-match-donations-to-nonprofit-newsrooms) program and the [News Revenue Hub](https://fundjournalism.org/).
+The News Match Donation Shortcode plugin creates a donation form compatible with the [News Revenue Hub](https://fundjournalism.org/) donation system. The plugin allows you to configure donation levels to match your organization's existing membership program, and it implements a shortcode that creates a donation form with either buttons or drop-down styled membership level selections. The shortcode can be used multiple times on a single page.
+
+The plugin was developed thanks to an investment from Knight Foundation as part of the national [News Match](https://www.newsmatch.org/) campaign.
 
 = Settings = 
 
@@ -25,7 +27,7 @@ These settings allow you to configure:
 - which donation form to use
 - the Salesforce campaign ID associated with this form 
 
-The settings page also allows you to configure four donation levels with minimum and maximum donation amounts and custom names for the tiers. Configure the donation levels to match your organization's existing membership programs.
+The settings page also allows you to configure up to four donation levels with minimum and maximum donation amounts and custom names for the tiers. Configure the donation levels to match your organization's existing membership programs.
 
 = Donation Shortcode Examples =
 
@@ -89,9 +91,9 @@ If you wish to augment the plugin's existing styles, examine the `donation.css` 
 
 = Do I have to be a News Revenue Hub client to use this plugin? =
 
-Yes.
+Yes. (Admission to the Hub is by application only.)
 
-This plugin is also compatible with any donation system that can accept queries in this format:
+However, this plugin is also compatible with any donation system that can accept queries in this format:
 
 - Setting up a recurring donation: `http://live.example.org/memberform?org_id=organizatino&amount=25.00&installmentPeriod=<yearly|monthly>&campaign=<salesforce campaign ID>`
 - Single donation: `http://live.example.org/donateform?org_id=organization&amount=50.00`
@@ -100,6 +102,6 @@ It should have live and staging URLs.
 
 = Does my organization have to use this plugin if we are a News Match member? =
 
-No, but we do recommend it as a way of simplifying your News Match donation pipeline.
+No, but we do recommend it if you are a News Revenue Hub client and wish to simplify your News Match donation pipeline.
 
 == Changelog ==
