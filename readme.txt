@@ -15,17 +15,17 @@ The News Match Donation Shortcode plugin creates a donation form compatible with
 
 The plugin was developed thanks to an investment from Knight Foundation as part of the national [News Match](https://www.newsmatch.org/) campaign.
 
-= Settings = 
+= Settings =
 
 The plugin's settings can be found in the WordPress Dashboard. In the left sidebar, look for Settings > News Match Shortcode.
 
-These settings allow you to configure: 
+These settings allow you to configure:
 - your organization's name
 - your organization's News Match ID
 - the default donation amount
 - the live and testing donation form URLs
 - which donation form to use
-- the Salesforce campaign ID associated with this form 
+- the Salesforce campaign ID associated with this form
 
 The settings page also allows you to configure up to four donation levels with minimum and maximum donation amounts and custom names for the tiers. Configure the donation levels to match your organization's existing membership programs.
 
@@ -47,15 +47,13 @@ Add a donation form with a Salesforce campaign id of `foo` and do not specify a 
 
 You may wish to use a drop-down instead of buttons; to do that add `type="select"` to the shortcode:
 
-```
-[newsmatch_donation_form type="select"]
+```[newsmatch_donation_form type="select"]
 
 [newsmatch_donation_form amount="50" type="select"]
 
 [newsmatch_donation_form sf_campaign_id="foo" amount="25" type="select"]
 
-[newsmatch_donation_form sf_campaign_id="foo" type="select"]
-```
+[newsmatch_donation_form sf_campaign_id="foo" type="select"]```
 
 == Frequently Asked Questions ==
 
