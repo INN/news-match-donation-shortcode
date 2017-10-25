@@ -40,15 +40,15 @@ Add donation form with no Salesforce campaign id and no default donation amount 
 
 Add donation form with no Salesforce campaign id and $50.00 as the default donation amount:
 
-[newsmatch_donation_form amount="50"]
+	[newsmatch_donation_form amount="50"]
 
 Add a donation form with a Salesforce campaign id of `foo` and $25.00 as the default donation amount:
 
-[newsmatch_donation_form sf_campaign_id="foo" amount="25"]
+	[newsmatch_donation_form sf_campaign_id="foo" amount="25"]
 
 Add a donation form with a Salesforce campaign id of `foo` and do not specify a default donation amount:
 
-[newsmatch_donation_form sf_campaign_id="foo"]
+	[newsmatch_donation_form sf_campaign_id="foo"]
 
 You may wish to use a drop-down instead of buttons; to do that add `type="select"` to the shortcode:
 
