@@ -65,6 +65,11 @@ input.newsmatch-donation-amount.form-control {
 	float:left;
 }
 
+.service-nm .donation-frequency-group,
+.service-nm .donation-frequencies {
+  display:none;
+}
+
 .donation-frequency {
   padding: 5px;
   width:30%;

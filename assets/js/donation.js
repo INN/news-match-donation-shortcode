@@ -110,20 +110,6 @@ function donationInit(form){
 
 		var $amount = form.find('.newsmatch-donation-amount');
 		var $frequency;
-		if (form.hasClass('type-select')){
-			$frequency = form.find('select[name="frequency"]');
-		} else {
-			$frequency = form.find('input[name="frequency"]:checked');
-			if ( 0 <= $frequency.length ) {
-				$frequency = form.find('.selected input[name="frequency"]');
-			}
-		}
-		var $campaign = form.find('.newsmatch-sf-campaign-id');
-
-		if (!isInputValid($amount.val(), $frequency.val(), form)) {
-			return false;
-		}
-
 		var org_id = form.attr('data-orgid');
 
 		var url = form.attr('action');
@@ -133,8 +119,22 @@ function donationInit(form){
 
 		var amount = +(parseFloat($amount_input.val()).toFixed(2));
 
-		if (form_type != 'nm') {
+		if ( (form.hasClass('service-fj')) ) {
 			//FundJournalism.org queries go here
+			if (form.hasClass('type-select')){
+				$frequency = form.find('select[name="frequency"]');
+			} else {
+				$frequency = form.find('input[name="frequency"]:checked');
+				if ( 0 <= $frequency.length ) {
+					$frequency = form.find('.selected input[name="frequency"]');
+				}
+			}
+			var $campaign = form.find('.newsmatch-sf-campaign-id');
+
+			if (!isInputValid($amount.val(), $frequency.val(), form)) {
+				return false;
+			}
+
 			if (amount <= 0) {
 				amount = parseFloat(15).toFixed(2);
 			}
@@ -178,6 +178,9 @@ function donationInit(form){
  * @return string           The message to display.
  */
 function getDonationLevel(amount, frequency, type, form) {
+	if ( !(form.hasClass('service-fj')) ) {
+		frequency = "once";
+	}
 	if (!isInputValid(amount, frequency, form)) {
 		return; // TODO: Handle error condition
 	}
