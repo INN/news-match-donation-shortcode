@@ -152,8 +152,9 @@ class NewsMatchDonation_Shortcode {
 			'l4_max'  => esc_attr( $levels_option['l4']['max'] ),
 		);
 
+		$form_type = get_option( $this->option_prefix . 'form_toggle' );
 
-		echo '<script type="text/javascript">var donor_levels = ' . json_encode( $donor_levels ) . '</script>';
+		echo '<script type="text/javascript">var form_type = "' . $form_type . '"; var donor_levels = ' . json_encode( $donor_levels ) . '</script>';
 
 		// Make sure that this is a valid value.
 		if ( ! in_array( $view_data['level'], array( 'individual', 'nonprofit', 'business' ), true ) ) {

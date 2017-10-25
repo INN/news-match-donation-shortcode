@@ -151,6 +151,15 @@ class NewsMatchDonation_Settings {
 			$this->settings_section
 		);
 
+		register_setting( $this->settings_group, self::$options_prefix . 'form_toggle', 'sanitize_text_field' );
+		add_settings_field(
+			self::$options_prefix . 'form_toggle',
+			__( 'Donate via Newsmatch.org or FundJournalism.org?', 'newsmatch' ),
+			array( $this, 'field_form_toggle' ),
+			$this->settings_page,
+			$this->settings_section
+		);
+
 		register_setting( $this->settings_group, self::$options_prefix . 'org_id', 'sanitize_text_field' );
 		add_settings_field(
 			self::$options_prefix . 'org_id',
@@ -470,6 +479,35 @@ class NewsMatchDonation_Settings {
 			'<input name="%1$s" id="%1$s" type="text" value="%2$s">',
 			esc_attr( $option ),
 			esc_attr( $value )
+		);
+	}
+
+	/**
+	 * Ouput the radio button for toggling between 'Newsmatch.org' and 'FundJournalism.org' urls
+	 *
+	 * @param array $args Optional arguments passed to callbacks registered with add_settings_field.
+	 */
+	public function field_form_toggle( $args ) {
+		$option = self::$options_prefix . 'form_toggle';
+		$value = get_option( $option, 'nm' );
+		if ( ! in_array( $value, array( 'nm', 'fj' ), true ) ) {
+			$value = 'nm';
+		}
+
+		echo sprintf(
+			'<p><label>
+				<input name="%1$s" id="%1$s-nm" type="radio" value="nm" %2$s>
+				%4$s
+			</label></p>
+			<p><label>
+				<input name="%1$s" id="%1$s-fj" type="radio" value="fj" %3$s>
+				%5$s
+			</label></p>',
+			esc_attr( $option ),
+			checked( $value, 'nm', false ), // Checked for NM.
+			checked( $value, 'fj', false ), // Checked for FJ.
+			esc_html__( 'NewsMatch.org', 'newsmatch' ),
+			esc_html__( 'FundJournalism.org', 'newsmatch' )
 		);
 	}
 

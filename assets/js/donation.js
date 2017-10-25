@@ -132,24 +132,37 @@ function donationInit(form){
 		}
 
 		var amount = +(parseFloat($amount_input.val()).toFixed(2));
-		if (amount <= 0) {
-			amount = parseFloat(15).toFixed(2);
-		}
 
-		if ($frequency.val() === 'once') {
-			url
-				+= 'donateform'
-				+ '?org_id=' + org_id
-				+ '&amount=' + amount.toFixed(2);
+		if (form_type != 'nm') {
+			//FundJournalism.org queries go here
+			if (amount <= 0) {
+				amount = parseFloat(15).toFixed(2);
+			}
+
+			if ($frequency.val() === 'once') {
+				url
+					+= 'donateform'
+					+ '?org_id=' + org_id
+					+ '&amount=' + amount.toFixed(2);
+			} else {
+				url += 'memberform'
+					+ '?org_id=' + org_id
+					+ '&amount=' + amount.toFixed(2)
+					+ '&installmentPeriod=' + $frequency.val();
+			}
+
+			if ($campaign.val()) {
+				url += "&campaign=" + $campaign.val();
+			}
 		} else {
-			url += 'memberform'
-				+ '?org_id=' + org_id
-				+ '&amount=' + amount.toFixed(2)
-				+ '&installmentPeriod=' + $frequency.val();
-		}
+			//NewsMatch.org queries go here
+			if (amount <= 0) {
+				amount = parseFloat(15).toFixed(2);
+			}
 
-		if ($campaign.val()) {
-			url += "&campaign=" + $campaign.val();
+			url += 'new'
+				+ '?org_id=' + org_id
+				+ '&amount=' + amount.toFixed(2)*100;
 		}
 
 		window.location.assign(encodeURI(url));
