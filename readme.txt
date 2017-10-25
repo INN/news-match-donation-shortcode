@@ -2,7 +2,8 @@
 Contributors: innlabs
 Tags: donation, shortcode
 Requires at least: 4.0
-Tested up to: 4.8.1
+Tested up to: 4.8.2
+Stable tag: 0.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -10,7 +11,7 @@ This plugin implements a shortcode that allows News Revenue Hub clients to colle
 
 == Description ==
 
-The News Match Donation Shortcode plugin creates a donation form compatible with the [News Revenue Hub](https://fundjournalism.org/) donation system. The plugin allows you to configure donation levels to match your organization's existing membership program, and it implements a shortcode that creates a donation form with either buttons or drop-down styled membership level selections. The shortcode can be used multiple times on a single page.
+The News Match Donation Shortcode plugin creates a donation form compatible with the [News Revenue Hub](https://fundjournalism.org/) and [News Match](https://newsmatch.org) donation systems. The plugin allows you to configure donation levels to match your organization's existing membership program, and it implements a shortcode that creates a donation form with either buttons or drop-down styled membership level selections. The shortcode can be used multiple times on a single page.
 
 The plugin was developed thanks to an investment from Knight Foundation as part of the national [News Match](https://www.newsmatch.org/) campaign.
 
@@ -20,7 +21,8 @@ The plugin's settings can be found in the WordPress Dashboard. In the left sideb
 
 These settings allow you to configure:
 - your organization's name
-- your organization's News Match ID
+- whether to accept donations through NewsMatch.org or FundJournalism.org
+- your organization's News Match ID with that provider
 - the default donation amount
 - the live and testing donation form URLs
 - which donation form to use
@@ -58,6 +60,8 @@ You may wish to use a drop-down instead of buttons; to do that add `type="select
 
 	[newsmatch_donation_form sf_campaign_id="foo" type="select"]
 
+If you have set the plugin to use NewsMatch.org to handle donations instead of FundJournalism.org, the donation frequency options will not be available to readers, as News Match only allows one-time donations.
+
 == Frequently Asked Questions ==
 
 = Who provides support for this plugin? =
@@ -92,7 +96,7 @@ If you wish to augment the plugin's existing styles, examine the `donation.css` 
 
 = Do I have to be a News Revenue Hub client to use this plugin? =
 
-Yes. (Admission to the Hub is by application only.)
+No; If your organization has a News Match donation page on newsmatch.org, you can use that instead of a donation page at the News Revenue Hub's fundjournalism.org. If you elect to use newsmatch.org, donation options are limited to one-time donations and donation frequency options will not present themselves to your website's readers.
 
 However, this plugin is also compatible with any donation system that can accept queries in this format:
 
@@ -106,3 +110,12 @@ It should have live and staging URLs.
 No, but we do recommend it if you are a News Revenue Hub client and wish to simplify your News Match donation pipeline.
 
 == Changelog ==
+
+= 0.1.2 =
+
+- Fixes an activation error on older PHP versions
+- Adds the ability to use NewsMatch.org donation page URLs.
+
+= 0.1.1 =
+
+Initial public release
