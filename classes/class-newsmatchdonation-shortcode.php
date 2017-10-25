@@ -126,6 +126,7 @@ class NewsMatchDonation_Shortcode {
 				'sf_campaign_id' => esc_attr( get_option( $this->option_prefix . 'sf_campaign_id', '' ) ),
 				'amount' => esc_attr( get_option( $this->option_prefix . 'default_donation', 15 ) ),
 				'level' => 'individual',
+				'form_type' => esc_attr( get_option( $this->option_prefix . 'form_toggle' ) ),
 			),
 			$atts
 		);
@@ -151,7 +152,6 @@ class NewsMatchDonation_Shortcode {
 			'l4_min'  => esc_attr( $levels_option['l4']['min'] ),
 			'l4_max'  => esc_attr( $levels_option['l4']['max'] ),
 		);
-
 
 		echo '<script type="text/javascript">var donor_levels = ' . json_encode( $donor_levels ) . '</script>';
 
