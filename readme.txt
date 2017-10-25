@@ -14,7 +14,7 @@ The News Match Donation Shortcode plugin creates a donation form compatible with
 
 The plugin was developed thanks to an investment from Knight Foundation as part of the national [News Match](https://www.newsmatch.org/) campaign.
 
-= Settings =
+== Settings ==
 
 The plugin's settings can be found in the WordPress Dashboard. In the left sidebar, look for Settings > News Match Shortcode.
 
@@ -28,31 +28,35 @@ These settings allow you to configure:
 
 The settings page also allows you to configure up to four donation levels with minimum and maximum donation amounts and custom names for the tiers. Configure the donation levels to match your organization's existing membership programs.
 
-= Donation Shortcode Examples =
+== Donation Shortcode Examples ==
 
 Donations can occur once or reoccur on a monthly or yearly basis. ("One Time", "Per Month" or "Per Year".) The donation shortcode comes in two forms: one with buttons and one with a drop-down to choose the donation frequency. The default shortcode uses buttons:
 
 Add donation form with no Salesforce campaign id and no default donation amount specified:
-`[newsmatch_donation_form]`
+
+	[newsmatch_donation_form]
 
 Add donation form with no Salesforce campaign id and $50.00 as the default donation amount:
-`[newsmatch_donation_form amount="50"]`
+
+[newsmatch_donation_form amount="50"]
 
 Add a donation form with a Salesforce campaign id of `foo` and $25.00 as the default donation amount:
-`[newsmatch_donation_form sf_campaign_id="foo" amount="25"]`
+
+[newsmatch_donation_form sf_campaign_id="foo" amount="25"]
 
 Add a donation form with a Salesforce campaign id of `foo` and do not specify a default donation amount:
-`[newsmatch_donation_form sf_campaign_id="foo"]`
+
+[newsmatch_donation_form sf_campaign_id="foo"]
 
 You may wish to use a drop-down instead of buttons; to do that add `type="select"` to the shortcode:
 
-`[newsmatch_donation_form type="select"]`
+	[newsmatch_donation_form type="select"]
 
-`[newsmatch_donation_form amount="50" type="select"]`
+	[newsmatch_donation_form amount="50" type="select"]
 
-`[newsmatch_donation_form sf_campaign_id="foo" amount="25" type="select"]`
+	[newsmatch_donation_form sf_campaign_id="foo" amount="25" type="select"]
 
-`[newsmatch_donation_form sf_campaign_id="foo" type="select"]`
+	[newsmatch_donation_form sf_campaign_id="foo" type="select"]
 
 == Frequently Asked Questions ==
 
