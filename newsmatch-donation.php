@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: News Match Donation Shortcode
-Description:  Provides methods to integrate with the donation application hosted at checkout.voiceofsandiego.org
+Description: Creates a minimal donation form for FundJournalism.org and NewsMatch.org
 Version: 0.1.2
 Author: INN Labs
 Author URI: https://labs.inn.org/
